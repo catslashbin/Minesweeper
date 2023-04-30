@@ -8,13 +8,18 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+enum CellState { HIDDEN = 0,
+                 REVEALED = 1,
+                 FLAGGED = 2 };
+typedef enum CellState CellState;
+
 /**
  * Struct for cells in the game.
  */
 struct MineCell {
+    int x, y;
     bool is_mine;
-    bool is_revealed;
-    bool is_flagged;
+    CellState cell_state;
     short num_surround_mines;
 };
 typedef struct MineCell MineCell;
@@ -46,13 +51,21 @@ MineField *createField(size_t length, size_t height, size_t num_mines);
 void freeField(MineField *field);
 
 /**
+ *
+ * @param x
+ * @param y
+ * @return
+ */
+MineCell *getCell(MineField *field, int x, int y);
+
+/**
  * Open a cell in the field, and update the field.
  * @param field Mine field
  * @param x Coordinate x, should be an integer between 0 and length
  * @param y Coordinate y, should be an integer between 0 and height
- * @return Is the opened cell a mine
+ * @return Is the opened cell contains a mine
  */
-bool openCell(MineField *field, int x, int y);
+bool revealCell(MineField *field, int x, int y);
 
 /**
  * Check if the user wins.
@@ -64,19 +77,12 @@ bool checkIfWin(MineField *field);
 /**
  * Get all the available cells surround the certain coordinates,
  * and put pointers that point to the surrounded cells into the buffer.
+ * @param field Mine field
  * @param x Coordinate x, should be an integer between 0 and length
  * @param y Coordinate y, should be an integer between 0 and height
  * @param surr_cells Buffer which contains pointers to the surrounded cells
- * @return Num of the surrounding cells
+ * @return Num of the surrounding cells, the maximum is 8
  */
-static size_t getSurroundCells(int x, int y, MineCell **surr_cells_buff);
-
-/**
- *
- * @param x
- * @param y
- * @return
- */
-MineCell *getCell(MineField* field, int x, int y);
+static size_t getSurroundCells(MineField *field, int x, int y, MineCell **surr_cells_buff);
 
 #endif //MINESWEEPER_CORE_H
