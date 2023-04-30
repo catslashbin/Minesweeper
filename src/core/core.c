@@ -19,7 +19,7 @@ int getRandInt(int m) {
 }
 
 
-MineField *createField(size_t length, size_t height, size_t num_mines) {
+MineField *createField(int length, int height, int num_mines) {
 
     assert(length > 0 && height > 0 && num_mines <= length * height);
 
@@ -27,31 +27,28 @@ MineField *createField(size_t length, size_t height, size_t num_mines) {
     field->cells = malloc(sizeof(MineCell) * length * height);
 
     // Init field
+    field->num_revealed = 0;
+    field->num_mines = num_mines;
     for (size_t i = 0; i < length * height; ++i) {
-        field->cells[i] = (MineCell){(int) (i % length), (int) (i / length), false, HIDDEN, 0};
+        field->cells[i] = (MineCell){false, HIDDEN};
     }
 
     // Scatter mines
     for (size_t i = 0; i < num_mines; ++i) {
-
         int x = getRandInt((int) length), y = getRandInt((int) height);
         MineCell *cell = getCell(field, x, y);
 
-        // A mine is already at that cell. Ignore
+        // Check if a mine is already at that cell.
         if (cell->is_mine) {
             i--;
-            continue;
+        } else {
+            cell->is_mine = true;
         }
+    }
 
-        // Update cell
-        cell->is_mine = true;
-
-        // Update surr cells
-        MineCell *surr_mines_buff[9];
-        size_t n = getSurroundCells(field, x, y, surr_mines_buff);
-        for (size_t j = 0; j < n; ++j) {
-            surr_mines_buff[j]->num_surround_mines++;
-        }
+    // Calculate surrounding mine nums
+    for (int i = 0; i < length * height; ++i) {
+        calcSurroundMineNum(field, i % length, i / length);
     }
 
     return field;
@@ -80,7 +77,9 @@ bool revealCell(MineField *field, int x, int y) {
         return false;
     }
 
+    // Reveal the cell
     cell->cell_state = REVEALED;
+    field->num_revealed++;
 
     // If the cell contains a mine, the game is over
     if (cell->is_mine) {
@@ -88,11 +87,12 @@ bool revealCell(MineField *field, int x, int y) {
     }
 
     // If the cell is "blank", recursively open the surrounding cells
-    if (cell->num_surround_mines == 0) {
-        MineCell *surr_cells_buff[8];
-        size_t num_surr_cells = getSurroundCells(field, x, y, surr_cells_buff);
-        for (size_t i = 0; i < num_surr_cells; i++) {
-            revealCell(field, surr_cells_buff[i]->x, surr_cells_buff[i]->y);
+    if (cell->num_surr_mines == 0) {
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
+                    revealCell(field, i, j);
+            }
         }
     }
 
@@ -100,17 +100,16 @@ bool revealCell(MineField *field, int x, int y) {
 }
 #pragma clang diagnostic pop
 
-static size_t getSurroundCells(MineField *field, int x, int y, MineCell **surr_cells_buff) {
-    size_t num_surr_cells = 0;
+bool checkIfWin(MineField *field) {
+    return field->num_revealed == field->num_mines;
+}
+
+static int calcSurroundMineNum(MineField *field, int x, int y) {
+    int num_surr_cells = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
-            if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y)) {
-                surr_cells_buff[num_surr_cells] = getCell(field, x, y);
-                num_surr_cells++;
-                if (num_surr_cells == 8) {
-                    return num_surr_cells;
-                }
-            }
+            if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
+                num_surr_cells += getCell(field, x, y)->is_mine;
         }
     }
     return num_surr_cells;

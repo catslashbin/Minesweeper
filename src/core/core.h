@@ -17,10 +17,9 @@ typedef enum CellState CellState;
  * Struct for cells in the game.
  */
 struct MineCell {
-    int x, y;
     bool is_mine;
     CellState cell_state;
-    short num_surround_mines;
+    short num_surr_mines;
 };
 typedef struct MineCell MineCell;
 
@@ -31,6 +30,8 @@ struct MineField {
     size_t length;
     size_t height;
     MineCell *cells;
+    int num_mines;
+    int num_revealed;
 };
 typedef struct MineField MineField;
 
@@ -42,7 +43,7 @@ typedef struct MineField MineField;
  * @param num_mines Numbers of mines
  * @return The initialized field
  */
-MineField *createField(size_t length, size_t height, size_t num_mines);
+MineField *createField(int length, int height, int num_mines);
 
 /**
  *
@@ -51,7 +52,7 @@ MineField *createField(size_t length, size_t height, size_t num_mines);
 void freeField(MineField *field);
 
 /**
- *
+ * Get cell struct from the coordinate
  * @param x
  * @param y
  * @return
@@ -68,6 +69,22 @@ MineCell *getCell(MineField *field, int x, int y);
 bool revealCell(MineField *field, int x, int y);
 
 /**
+ * Flag a cell as mine.
+ * @param field
+ * @param x
+ * @param y
+ */
+void flagCell(MineCell *field, int x, int y);
+
+/**
+ * Unflag a cell.
+ * @param field
+ * @param x
+ * @param y
+ */
+void unflagCell(MineCell *field, int x, int y);
+
+/**
  * Check if the user wins.
  * @param field Mine field
  * @return If the user wins
@@ -75,14 +92,12 @@ bool revealCell(MineField *field, int x, int y);
 bool checkIfWin(MineField *field);
 
 /**
- * Get all the available cells surround the certain coordinates,
- * and put pointers that point to the surrounded cells into the buffer.
+ * Calculate the surrounding cells surround the certain coordinates.
  * @param field Mine field
  * @param x Coordinate x, should be an integer between 0 and length
  * @param y Coordinate y, should be an integer between 0 and height
- * @param surr_cells Buffer which contains pointers to the surrounded cells
- * @return Num of the surrounding cells, the maximum is 8
+ * @return Num of the surrounding mines, the maximum is 8
  */
-static size_t getSurroundCells(MineField *field, int x, int y, MineCell **surr_cells_buff);
+static int calcSurroundMineNum(MineField *field, int x, int y);
 
 #endif //MINESWEEPER_CORE_H
