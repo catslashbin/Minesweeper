@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <core/core.h>
 
 auto main() -> int {
     std::cout << "HelloWorld!" << std::endl;

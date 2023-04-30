@@ -4,6 +4,8 @@ project(Minesweeper)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 17)
 
+include_directories(src)
+
 add_executable(Minesweeper-CLI
         src/core/core.c
         src/core/core.h
