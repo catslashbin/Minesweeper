@@ -18,7 +18,6 @@ int getRandInt(int m) {
     return rand() % m; // NOLINT(cert-msc50-cpp)
 }
 
-
 MineField *createField(int length, int height, int num_mines) {
 
     assert(length > 0 && height > 0 && num_mines <= length * height);
@@ -27,6 +26,8 @@ MineField *createField(int length, int height, int num_mines) {
     field->cells = malloc(sizeof(MineCell) * length * height);
 
     // Init field
+    field->length = length;
+    field->height = height;
     field->num_revealed = 0;
     field->num_mines = num_mines;
     for (size_t i = 0; i < length * height; ++i) {
@@ -48,7 +49,7 @@ MineField *createField(int length, int height, int num_mines) {
 
     // Calculate surrounding mine nums
     for (int i = 0; i < length * height; ++i) {
-        calcSurroundMineNum(field, i % length, i / length);
+        getCell(field, i % length, i / length)->num_surr_mines = calcSurroundMineNum(field, i % length, i / length);
     }
 
     return field;
@@ -104,7 +105,7 @@ bool checkIfWin(MineField *field) {
     return field->num_revealed == field->num_mines;
 }
 
-static int calcSurroundMineNum(MineField *field, int x, int y) {
+static short calcSurroundMineNum(MineField *field, int x, int y) {
     int num_surr_cells = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {

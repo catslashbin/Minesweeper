@@ -69,22 +69,6 @@ MineCell *getCell(MineField *field, int x, int y);
 bool revealCell(MineField *field, int x, int y);
 
 /**
- * Flag a cell as mine.
- * @param field
- * @param x
- * @param y
- */
-void flagCell(MineCell *field, int x, int y);
-
-/**
- * Unflag a cell.
- * @param field
- * @param x
- * @param y
- */
-void unflagCell(MineCell *field, int x, int y);
-
-/**
  * Check if the user wins.
  * @param field Mine field
  * @return If the user wins
@@ -98,6 +82,6 @@ bool checkIfWin(MineField *field);
  * @param y Coordinate y, should be an integer between 0 and height
  * @return Num of the surrounding mines, the maximum is 8
  */
-static int calcSurroundMineNum(MineField *field, int x, int y);
+static short calcSurroundMineNum(MineField *field, int x, int y);
 
 #endif //MINESWEEPER_CORE_H
