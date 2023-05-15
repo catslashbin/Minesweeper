@@ -16,7 +16,7 @@
 #define CLI_DISPLAY_MINE "*"
 #define CLI_DISPLAY_FLAG "F"
 
-void printField(MineField *field) {
+void printField(MineField *field, bool reveal_all) {
 
     // Print vertical grid
     printf("   ");
@@ -38,9 +38,9 @@ void printField(MineField *field) {
 
         for (int x = 0; x < LENGTH; x++) {
             MineCell *cell = getCell(field, x, y);
-            if (cell->cell_state == HIDDEN) {
+            if (cell->cell_state == HIDDEN && !reveal_all) {
                 printf(CLI_DISPLAY_UNREVEALED" ");
-            } else if (cell->cell_state == FLAGGED) {
+            } else if (cell->cell_state == FLAGGED && !reveal_all) {
                 printf(CLI_DISPLAY_FLAG" ");
             } else if (cell->is_mine) {
                 printf(CLI_DISPLAY_MINE" ");
@@ -60,7 +60,7 @@ int main() {
     // Main game loop in CLI
     while (!is_game_over) {
 
-        printField(field);
+        printField(field, false);
 
         // Handle user input
         int x, y;
@@ -95,6 +95,7 @@ int main() {
         }
     }
 
+    printField(field, true);
     freeField(field);
 
     return 0;
