@@ -99,7 +99,7 @@ bool revealCell(MineField *field, int x, int y) {
 #pragma clang diagnostic pop
 
 bool checkIfWin(MineField *field) {
-    return field->num_revealed == field->num_mines;
+    return field->num_revealed == field->length * field->height - field->num_mines;
 }
 
 static short calcSurroundMineNum(MineField *field, int x, int y) {
