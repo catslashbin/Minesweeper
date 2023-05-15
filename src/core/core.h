@@ -19,7 +19,7 @@ typedef enum CellState CellState;
 struct MineCell {
     bool is_mine;
     CellState cell_state;
-    short num_surr_mines;
+    int num_surr_mines;
 };
 typedef struct MineCell MineCell;
 
@@ -82,6 +82,6 @@ bool checkIfWin(MineField *field);
  * @param y Coordinate y, should be an integer between 0 and height
  * @return Num of the surrounding mines, the maximum is 8
  */
-static short calcSurroundMineNum(MineField *field, int x, int y);
+static int calcSurroundMineNum(MineField *field, int x, int y);
 
 #endif //MINESWEEPER_CORE_H

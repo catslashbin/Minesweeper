@@ -102,13 +102,13 @@ bool checkIfWin(MineField *field) {
     return field->num_revealed == field->length * field->height - field->num_mines;
 }
 
-static short calcSurroundMineNum(MineField *field, int x, int y) {
-    int num_surr_cells = 0;
+static int calcSurroundMineNum(MineField *field, int x, int y) {
+    int n_surr_mines = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
-                num_surr_cells += getCell(field, x, y)->is_mine;
+                n_surr_mines += getCell(field, i, j)->is_mine;
         }
     }
-    return num_surr_cells;
+    return n_surr_mines;
 }
