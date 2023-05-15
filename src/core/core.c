@@ -56,9 +56,6 @@ MineField *createField(int length, int height, int num_mines) {
 }
 
 void freeField(MineField *field) {
-    for (size_t i = 0; i < field->length * field->height; ++i) {
-        free(&field->cells[i]);
-    }
     free(field);
 }
 
