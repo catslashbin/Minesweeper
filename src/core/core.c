@@ -18,6 +18,8 @@ int getRandInt(int m) {
     return rand() % m; // NOLINT(cert-msc50-cpp)
 }
 
+#define IS_AVAILABLE_SURR (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
+
 MineField *createField(int length, int height, int num_mines) {
 
     assert(length > 0 && height > 0 && num_mines <= length * height && num_mines >= 0);
@@ -92,7 +94,7 @@ bool revealCell(MineField *field, int x, int y) {
     if (cell->num_surr_mines == 0) {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
-                if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
+                if (IS_AVAILABLE_SURR)
                     revealCell(field, i, j);
             }
         }
@@ -112,7 +114,7 @@ bool revealSurrCells(MineField *field, int x, int y) {
     int num_surr_flagged = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
-            if (i >= 0 && i < field->length && j >= 0 && j < field->height) {
+            if (IS_AVAILABLE_SURR) {
                 num_surr_flagged += getCell(field, i, j)->cell_state == FLAGGED;
             }
         }
@@ -124,7 +126,7 @@ bool revealSurrCells(MineField *field, int x, int y) {
     bool is_hit_mine = false;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
-            if (i >= 0 && i < field->length && j >= 0 && j < field->height) {
+            if (IS_AVAILABLE_SURR) {
                 // NOTE: the `revealCell` will handel the cells marked with flag or already revealed.
                 is_hit_mine = revealCell(field, i, j) || is_hit_mine;
             }
@@ -165,7 +167,7 @@ static int calcSurroundMineNum(MineField *field, int x, int y) {
     int n_surr_mines = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
-            if (i >= 0 && i < field->length && j >= 0 && j < field->height && !(i == x && j == y))
+            if (IS_AVAILABLE_SURR)
                 n_surr_mines += getCell(field, i, j)->is_mine;
         }
     }
