@@ -103,6 +103,24 @@ bool revealCell(MineField *field, int x, int y) {
 #pragma clang diagnostic pop
 
 bool revealSurrCells(MineField *field, int x, int y) {
+
+    // Ignore the cell if it's not revealed
+    if (getCell(field, x, y)->cell_state != REVEALED)
+        return false;
+
+    // If the flagged mines does not equal to the num_surr_mines, ignore the cell.
+    int num_surr_flagged = 0;
+    for (int i = x - 1; i <= x + 1; i++) {
+        for (int j = y - 1; j <= y + 1; j++) {
+            if (i >= 0 && i < field->length && j >= 0 && j < field->height) {
+                num_surr_flagged += getCell(field, i, j)->cell_state == FLAGGED;
+            }
+        }
+    }
+    if (num_surr_flagged != getCell(field, x, y)->num_surr_mines)
+        return false;
+
+    // Open the cells recursively
     bool is_hit_mine = false;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
