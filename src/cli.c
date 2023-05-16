@@ -61,8 +61,8 @@ int main() {
             num_mines = 40;
             break;
         case 3:
-            length = 16;
-            height = 30;
+            length = 30;
+            height = 16;
             num_mines = 99;
             break;
         case 4: // Customize
