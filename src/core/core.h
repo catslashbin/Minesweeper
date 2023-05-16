@@ -33,6 +33,7 @@ struct MineField {
     MineCell *cells;
     int num_mines;
     int num_revealed;
+    int num_flagged;
 };
 typedef struct MineField MineField;
 

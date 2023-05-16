@@ -11,8 +11,8 @@
 #define CLI_DISPLAY_FLAG "!"
 #define CLI_DISPLAY_UNKNOWN "?"
 
-void printField(MineField *field, bool reveal_all, int num_steps, int num_mines) {
-    printf("%d %d\n", num_steps, num_mines);
+void printField(MineField *field, bool reveal_all, int num_steps, int num_mines_guess) {
+    printf("%d %d\n", num_steps, num_mines_guess);
     for (int y = 0; y < field->height; ++y) {
         for (int x = 0; x < field->length; ++x) {
             MineCell *cell = getCell(field, x, y);
@@ -121,18 +121,18 @@ int main() {
 
         if (is_revealed_mine) {
             printf("Hit mine, you lose\n");
-            printField(field, true, num_steps, num_mines);
+            printField(field, true, num_steps, num_mines - field->num_flagged);
             break;
         }
 
         if (checkIfWin(field)) {
             printf("Game over, you win\n");
-            printField(field, true, num_steps, num_mines);
+            printField(field, true, num_steps, num_mines - field->num_flagged);
             break;
         }
 
         printf("Game in progress\n");
-        printField(field, false, num_steps, num_mines);
+        printField(field, false, num_steps, num_mines - field->num_flagged);
     }
 
     freeField(field);

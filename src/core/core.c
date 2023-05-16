@@ -28,6 +28,7 @@ MineField *createField(int length, int height, int num_mines) {
     field->length = length;
     field->height = height;
     field->num_revealed = 0;
+    field->num_flagged = 0;
     field->num_mines = num_mines;
 
     for (size_t i = 0; i < length * height; ++i) {
@@ -106,7 +107,7 @@ bool revealSurrCells(MineField *field, int x, int y) {
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (i >= 0 && i < field->length && j >= 0 && j < field->height) {
-                // NOTE: the `revealCell` will handel the cells marked with flag.
+                // NOTE: the `revealCell` will handel the cells marked with flag or already revealed.
                 is_hit_mine = revealCell(field, i, j) || is_hit_mine;
             }
         }
@@ -116,20 +117,26 @@ bool revealSurrCells(MineField *field, int x, int y) {
 
 void markFlagCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
-    if (cell->cell_state == HIDDEN || cell->cell_state == UNKNOWN)
+    if (cell->cell_state == HIDDEN || cell->cell_state == UNKNOWN) {
         cell->cell_state = FLAGGED;
+        field->num_flagged++;
+    }
 }
 
 void markUnknownCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
     if (cell->cell_state == HIDDEN || cell->cell_state == FLAGGED)
         cell->cell_state = UNKNOWN;
+    if (cell->cell_state == FLAGGED)
+        field->num_flagged--;
 }
 
 void clearMarkCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
     if (cell->cell_state == FLAGGED || cell->cell_state == UNKNOWN)
         cell->cell_state = HIDDEN;
+    if (cell->cell_state == FLAGGED)
+        field->num_flagged--;
 }
 
 bool checkIfWin(MineField *field) {
