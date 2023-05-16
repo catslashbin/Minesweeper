@@ -11,6 +11,11 @@ add_executable(Minesweeper-CLI
         src/core/core.h
         src/cli.c)
 
+add_executable(Minesweeper-test
+        src/core/core.c
+        src/core/core.h
+        src/test.c)
+
 add_executable(Minesweeper
         src/core/core.c
         src/core/core.h
