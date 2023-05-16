@@ -10,7 +10,8 @@
 
 enum CellState { HIDDEN = 0,
                  REVEALED = 1,
-                 FLAGGED = 2 };
+                 FLAGGED = 2,
+                 UNKNOWN = 3 };
 typedef enum CellState CellState;
 
 /**
@@ -37,13 +38,28 @@ typedef struct MineField MineField;
 
 
 /**
- * Create and initialize a mine field
+ * Create a mine field
  * @param length Length of the field
  * @param height Height of the field
  * @param num_mines Numbers of mines
- * @return The initialized field
+ * @return The field
  */
 MineField *createField(int length, int height, int num_mines);
+
+/**
+ * Init the mine field, including calculating the surrounding mines num of each cell.
+ * @param field
+ */
+void initField(MineField *field);
+
+/**
+ * Scatter mines in the field randomly.
+ * @note The function will avoid scatter mine at (init_x, init_y), so the user will not hit a mine at the first click.
+ * @param field
+ * @param init_x
+ * @param init_y
+ */
+void scatterMines(MineField *field, int init_x, int init_y);
 
 /**
  *
@@ -67,6 +83,14 @@ MineCell *getCell(MineField *field, int x, int y);
  * @return Is the opened cell contains a mine
  */
 bool revealCell(MineField *field, int x, int y);
+
+bool revealSurrCells(MineField *field, int x, int y);
+
+void markFlagCell(MineField *field, int x, int y);
+
+void markUnknownCell(MineField *field, int x, int y);
+
+void clearMarkCell(MineField *field, int x, int y);
 
 /**
  * Check if the user wins.

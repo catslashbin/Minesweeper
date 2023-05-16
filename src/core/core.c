@@ -20,39 +20,44 @@ int getRandInt(int m) {
 
 MineField *createField(int length, int height, int num_mines) {
 
-    assert(length > 0 && height > 0 && num_mines <= length * height);
+    assert(length > 0 && height > 0 && num_mines <= length * height && num_mines >= 0);
 
     MineField *field = malloc(sizeof(MineField));
     field->cells = malloc(sizeof(MineCell) * length * height);
 
-    // Init field
     field->length = length;
     field->height = height;
     field->num_revealed = 0;
     field->num_mines = num_mines;
+
     for (size_t i = 0; i < length * height; ++i) {
         field->cells[i] = (MineCell){false, HIDDEN};
     }
 
-    // Scatter mines
-    for (size_t i = 0; i < num_mines; ++i) {
-        int x = getRandInt((int) length), y = getRandInt((int) height);
+    return field;
+}
+
+void initField(MineField *field) {
+    for (size_t x = 0; x < field->length; ++x) {
+        for (size_t y = 0; y < field->height; ++y) {
+            MineCell *cell = getCell(field, (int) x, (int) y);
+            cell->num_surr_mines = calcSurroundMineNum(field, (int) x, (int) y);
+        }
+    }
+}
+
+void scatterMines(MineField *field, int init_x, int init_y) {
+    for (size_t i = 0; i < field->num_mines; ++i) {
+        int x = getRandInt((int) field->length), y = getRandInt((int) field->height);
         MineCell *cell = getCell(field, x, y);
 
-        // Check if a mine is already at that cell.
-        if (cell->is_mine) {
+        // Check if a mine is already at that cell, or the cell is the initial cell.
+        if (cell->is_mine || (x == init_x && y == init_y)) {
             i--;
         } else {
             cell->is_mine = true;
         }
     }
-
-    // Calculate surrounding mine nums
-    for (int i = 0; i < length * height; ++i) {
-        getCell(field, i % length, i / length)->num_surr_mines = calcSurroundMineNum(field, i % length, i / length);
-    }
-
-    return field;
 }
 
 void freeField(MineField *field) {
@@ -71,20 +76,18 @@ bool revealCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
 
     // Ignore the cell if it has already been revealed or flagged
-    if (cell->cell_state != HIDDEN) {
+    if (cell->cell_state == REVEALED || cell->cell_state == FLAGGED) {
         return false;
     }
 
     // Reveal the cell
     cell->cell_state = REVEALED;
     field->num_revealed++;
-
-    // If the cell contains a mine, the game is over
     if (cell->is_mine) {
         return true;
     }
 
-    // If the cell is "blank", recursively open the surrounding cells
+    // If the cell is "blank", open the surrounding cells recursively
     if (cell->num_surr_mines == 0) {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
@@ -97,6 +100,37 @@ bool revealCell(MineField *field, int x, int y) {
     return false;
 }
 #pragma clang diagnostic pop
+
+bool revealSurrCells(MineField *field, int x, int y) {
+    bool is_hit_mine = false;
+    for (int i = x - 1; i <= x + 1; i++) {
+        for (int j = y - 1; j <= y + 1; j++) {
+            if (i >= 0 && i < field->length && j >= 0 && j < field->height) {
+                // NOTE: the `revealCell` will handel the cells marked with flag.
+                is_hit_mine = revealCell(field, i, j) || is_hit_mine;
+            }
+        }
+    }
+    return is_hit_mine;
+}
+
+void markFlagCell(MineField *field, int x, int y) {
+    MineCell *cell = getCell(field, x, y);
+    if (cell->cell_state == HIDDEN || cell->cell_state == UNKNOWN)
+        cell->cell_state = FLAGGED;
+}
+
+void markUnknownCell(MineField *field, int x, int y) {
+    MineCell *cell = getCell(field, x, y);
+    if (cell->cell_state == HIDDEN || cell->cell_state == FLAGGED)
+        cell->cell_state = UNKNOWN;
+}
+
+void clearMarkCell(MineField *field, int x, int y) {
+    MineCell *cell = getCell(field, x, y);
+    if (cell->cell_state == FLAGGED || cell->cell_state == UNKNOWN)
+        cell->cell_state = HIDDEN;
+}
 
 bool checkIfWin(MineField *field) {
     return field->num_revealed == field->length * field->height - field->num_mines;
