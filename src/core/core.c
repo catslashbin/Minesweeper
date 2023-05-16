@@ -112,29 +112,32 @@ bool revealSurrCells(MineField *field, int x, int y) {
     if (getCell(field, x, y)->cell_state != REVEALED)
         return false;
 
-    // If the flagged mines does not equal to the num_surr_mines, ignore the cell.
     int num_surr_flagged = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (IS_AVAILABLE_SURR) {
-                num_surr_flagged += getCell(field, i, j)->cell_state == FLAGGED;
+                MineCell *cell = getCell(field, i, j);
+                num_surr_flagged += cell->cell_state == FLAGGED;
+                // If the mine is incorrectly flagged, stop the game before revealing the cells
+                if (cell->is_mine && cell->cell_state != FLAGGED) return true;
             }
         }
     }
+
+    // If the flagged mines does not equal to the num_surr_mines, ignore the cell.
     if (num_surr_flagged != getCell(field, x, y)->num_surr_mines)
         return false;
 
     // Open the cells recursively
-    bool is_hit_mine = false;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (IS_AVAILABLE_SURR) {
                 // NOTE: the `revealCell` will handel the cells marked with flag or already revealed.
-                is_hit_mine = revealCell(field, i, j) || is_hit_mine;
+                revealCell(field, i, j);
             }
         }
     }
-    return is_hit_mine;
+    return false;
 }
 
 void markFlagCell(MineField *field, int x, int y) {
@@ -161,7 +164,7 @@ void markUnknownCell(MineField *field, int x, int y) {
 
 void clearMarkCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
-        switch (cell->cell_state) {
+    switch (cell->cell_state) {
         case FLAGGED:
             field->num_flagged--;
             // NO BREAK HERE!
