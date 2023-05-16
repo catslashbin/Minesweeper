@@ -95,7 +95,7 @@ bool revealCell(MineField *field, int x, int y) {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 if (IS_AVAILABLE_SURR) {
-                    clearMarkCell(field, i, j); // Removes flags on cell
+                    // clearMarkCell(field, i, j); // Removes flags on cell
                     revealCell(field, i, j);
                 }
             }
