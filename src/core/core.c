@@ -94,8 +94,10 @@ bool revealCell(MineField *field, int x, int y) {
     if (cell->num_surr_mines == 0) {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
-                if (IS_AVAILABLE_SURR)
+                if (IS_AVAILABLE_SURR) {
+                    // clearMarkCell(field, i, j); // Removes flags on cell
                     revealCell(field, i, j);
+                }
             }
         }
     }
@@ -145,18 +147,30 @@ void markFlagCell(MineField *field, int x, int y) {
 
 void markUnknownCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
-    if (cell->cell_state == HIDDEN || cell->cell_state == FLAGGED)
-        cell->cell_state = UNKNOWN;
-    if (cell->cell_state == FLAGGED)
-        field->num_flagged--;
+    switch (cell->cell_state) {
+        case FLAGGED:
+            field->num_flagged--;
+            // NO BREAK HERE!
+        case HIDDEN:
+            cell->cell_state = UNKNOWN;
+            break;
+        default:
+            break;
+    }
 }
 
 void clearMarkCell(MineField *field, int x, int y) {
     MineCell *cell = getCell(field, x, y);
-    if (cell->cell_state == FLAGGED || cell->cell_state == UNKNOWN)
-        cell->cell_state = HIDDEN;
-    if (cell->cell_state == FLAGGED)
-        field->num_flagged--;
+        switch (cell->cell_state) {
+        case FLAGGED:
+            field->num_flagged--;
+            // NO BREAK HERE!
+        case UNKNOWN:
+            cell->cell_state = HIDDEN;
+            break;
+        default:
+            break;
+    }
 }
 
 bool checkIfWin(MineField *field) {
