@@ -20,4 +20,8 @@ add_executable(Minesweeper
         src/core/core.c
         src/core/core.h
         src/main.cpp)
+
+find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
+include_directories(${SFML_INCLUDE_DIRS})
+
 target_link_libraries(Minesweeper PRIVATE sfml-graphics sfml-audio sfml-window sfml-system)
