@@ -16,7 +16,8 @@ add_executable(Minesweeper-test
         src/core/core.h
         src/test.c)
 
-add_executable(Minesweeper
+add_executable(
+        Minesweeper
         src/core/core.c
         src/core/core.h
         src/main.cpp
@@ -24,7 +25,12 @@ add_executable(Minesweeper
         src/ui/scene.cpp
         src/ui/game.hpp
         src/ui/game.cpp
-        src/ui/consts.hpp src/ui/scenes/menu_scene.hpp src/ui/scenes/menu_scene.cpp src/ui/intents.hpp)
+        src/ui/consts.hpp
+        src/ui/scenes/menu_scene.hpp
+        src/ui/scenes/menu_scene.cpp
+        src/ui/scenes/field_scene.cpp
+        src/ui/scenes/field_scene.hpp
+        src/core/core.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})

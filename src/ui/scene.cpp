@@ -3,6 +3,7 @@
 
 #include <utility>
 
-void Scene::changeScene(std::shared_ptr<Intent> intent) {
-    return_intent = std::move(intent);
+void Scene::changeScene(std::shared_ptr<Scene> target_scene) {
+    has_returned = true;
+    next_scene = std::move(target_scene);
 }

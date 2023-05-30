@@ -25,10 +25,9 @@ void Game::mainLoop() {
         assert(_curr_scene != nullptr);
         _curr_scene->update();
 
-        if (_curr_scene->return_intent != nullptr) {
-            switch (_curr_scene->return_intent->target_intent) {
-
-            }
+        if (_curr_scene->has_returned) {
+            // Switch scene
+            _curr_scene = _curr_scene->next_scene;
         }
 
         window.display();
@@ -39,6 +38,9 @@ void Game::start() {
 
     // Initialize current scene as Menu
     _curr_scene = std::make_shared<MenuScene>(window);
+
+    // Enable vertical sync
+    window.setVerticalSyncEnabled(true);
 
     mainLoop();
 }

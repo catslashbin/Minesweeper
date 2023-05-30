@@ -5,10 +5,9 @@
 
 class MenuScene : public Scene {
 public:
-    using Scene::Scene;
     using Scene::changeScene;
 
-    void start(std::shared_ptr<Intent> intent) override;
+    explicit MenuScene(sf::RenderWindow &window);
 
     void update() override;
 };
