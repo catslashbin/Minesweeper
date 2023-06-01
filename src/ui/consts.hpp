@@ -7,7 +7,7 @@
 #define WIN_HEIGHT 120 DP
 #define WIN_TITLE L"Material 3 扫雷"
 
-#define ASSETS_DIR "src/ui/assets/"
+#define ASSETS_DIR "../src/ui/assets/"
 #define TITLE_BG_COLOR sf::Color{ 0xF6FCFFFF }
 #define TITLE_COLOR sf::Color{ 0x00547AFF }
 #define TITLE_Y 3.5 DP
