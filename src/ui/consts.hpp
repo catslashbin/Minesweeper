@@ -1,6 +1,8 @@
 #ifndef MINESWEEPER_CONSTS_HPP
 #define MINESWEEPER_CONSTS_HPP
 
+/* clang-format off */
+
 #define DP *8
 #define ARCDP /8
 #define WIN_WIDTH 120 DP
@@ -11,5 +13,7 @@
 #define TITLE_BG_COLOR sf::Color{ 0xF6FCFFFF }
 #define TITLE_COLOR sf::Color{ 0x00547AFF }
 #define TITLE_Y 3.5 DP
+
+/* clang-format on */
 
 #endif //MINESWEEPER_CONSTS_HPP

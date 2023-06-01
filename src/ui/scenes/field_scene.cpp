@@ -50,11 +50,11 @@ void FieldScene::update() {
         // Trigger scene change
         sf::Vector2 position = sf::Mouse::getPosition(_window);
         // The Menu Icon
-        if(position.x ARCDP >= 4 && position.x ARCDP <= 9 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
+        if (position.x ARCDP >= 4 && position.x ARCDP <= 9 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
             changeScene(std::make_shared<MenuScene>(_window));
         }
         // The Exit Icon
-        if(position.x ARCDP >= WIN_WIDTH ARCDP - 11 && position.x ARCDP <= WIN_WIDTH ARCDP - 4 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
+        if (position.x ARCDP >= WIN_WIDTH ARCDP - 11 && position.x ARCDP <= WIN_WIDTH ARCDP - 4 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
             _window.close();
         }
     }
