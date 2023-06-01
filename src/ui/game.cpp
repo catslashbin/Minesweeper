@@ -6,17 +6,38 @@
 #include <memory>
 
 
-Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), WIN_TITLE) {}
+Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), WIN_TITLE, sf::Style::None) {}
 
 void Game::mainLoop() {
 
     sf::Event event{};
+    sf::Vector2i grabbedOffset;
+    bool grabbedWindow = false;
     while (window.isOpen()) {
 
         // Handle events
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+            // Draggable borderless window
+            else if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    grabbedOffset = window.getPosition() - sf::Mouse::getPosition();
+                    grabbedWindow = true;
+                }
+            }
+            else if (event.type == sf::Event::MouseButtonReleased)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    grabbedWindow = false;
+            }
+            else if (event.type == sf::Event::MouseMoved)
+            {
+                if (grabbedWindow)
+                    window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
+            }
         }
 
         window.clear();

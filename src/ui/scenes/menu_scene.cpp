@@ -4,13 +4,12 @@
 
 void MenuScene::update() {
 
-    sf::CircleShape circle(20 DP);
-    circle.setFillColor(sf::Color::Green);
-    _window.draw(circle);
-
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         // Trigger scene change
-        changeScene(std::make_shared<FieldScene>(_window, 10, 10, 10));
+        sf::Vector2 position = sf::Mouse::getPosition(_window);
+        if(position.x ARCDP >= 32) {
+            changeScene(std::make_shared<FieldScene>(_window, 10, 10, 10));
+        }
     }
 }
 
