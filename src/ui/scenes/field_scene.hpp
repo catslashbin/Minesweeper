@@ -1,7 +1,7 @@
 #ifndef MINESWEEPER_FIELD_SCENE_HPP
 #define MINESWEEPER_FIELD_SCENE_HPP
 
-// #include "core/core.hpp"
+#include "core/core.hpp"
 #include "ui/scene.hpp"
 
 class FieldScene : public Scene {

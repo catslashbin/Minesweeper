@@ -195,3 +195,4 @@ static int calcSurroundMineNum(MineField *field, int x, int y) {
     }
     return n_surr_mines;
 }
+
