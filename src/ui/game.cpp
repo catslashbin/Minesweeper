@@ -7,7 +7,7 @@
 #include <cassert>
 #include <memory>
 
-Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), WIN_TITLE, sf::Style::None) {}
+Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "", sf::Style::Close) {}
 
 void Game::mainLoop() {
 
