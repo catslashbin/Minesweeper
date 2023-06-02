@@ -36,7 +36,9 @@ add_executable(
         src/ui/button.cpp
         src/ui/button.hpp
         src/ui/utils/res_pool.cpp
-        src/ui/utils/res_pool.hpp src/ui/utils/rounded.hpp src/ui/utils/rounded.cpp)
+        src/ui/utils/res_pool.hpp
+        src/ui/utils/rounded.hpp
+        src/ui/utils/rounded.cpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 find_package(spdlog REQUIRED)
