@@ -98,7 +98,7 @@ namespace sf {
                 break;
         }
 
-        return {myRadius * cos(deltaAngle * (index - centerIndex) * pi / 180) + center.x,
-                -myRadius * sin(deltaAngle * (index - centerIndex) * pi / 180) + center.y};
+        return {static_cast<float>(myRadius * cos(deltaAngle * (index - centerIndex) * pi / 180) + center.x),
+                static_cast<float>(-myRadius * sin(deltaAngle * (index - centerIndex) * pi / 180) + center.y)};
     }
 } // namespace sf
