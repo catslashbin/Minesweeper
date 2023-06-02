@@ -23,6 +23,8 @@ void FieldScene::update() {
 FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
     : Scene(window) { //, mine_field_(field_length, field_height, num_mines) {
 
+    // FIXME: Icon not loaded! Implement a resource pool to fix.
+
     // Top Bar
     auto rect = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH, 13 DP));
     rect->setFillColor(TITLE_BG_COLOR);
