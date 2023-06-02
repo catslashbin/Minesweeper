@@ -34,7 +34,9 @@ add_executable(
         src/ui/scenes/field_scene.hpp
         src/core/core.hpp
         src/ui/button.cpp
-        src/ui/button.hpp)
+        src/ui/button.hpp
+        src/ui/res_pool.cpp
+        src/ui/res_pool.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})

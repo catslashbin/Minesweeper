@@ -1,6 +1,7 @@
 #include "field_scene.hpp"
 #include "menu_scene.hpp"
 #include "ui/consts.hpp"
+#include "ui/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -31,38 +32,34 @@ FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_hei
     drawables_.push_back(rect);
 
     // The Menu Icon
-    sf::Texture menuImg;
-    menuImg.loadFromFile(ASSETS_DIR "menu.png");
     auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    menuRect->setTexture(&menuImg);
+    auto menuTexture = ResPool::getInstance().getTexture("menu.png");
+    menuRect->setTexture(menuTexture.get());
     menuRect->setPosition(4 DP, TITLE_Y);
     drawables_.push_back(menuRect);
 
     // The Restart Icon
-    sf::Texture restartImg;
-    restartImg.loadFromFile(ASSETS_DIR "restart.png");
     auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    restartRect->setTexture(&restartImg);
+    auto restartTexture = ResPool::getInstance().getTexture("restart.png");
+    restartRect->setTexture(restartTexture.get());
     restartRect->setPosition(WIN_WIDTH - 20 DP, TITLE_Y);
     drawables_.push_back(restartRect);
 
     // The Exit Icon
-    sf::Texture exitImg;
-    exitImg.loadFromFile(ASSETS_DIR "exit.png");
     auto exitRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    exitRect->setTexture(&exitImg);
+    auto exitTexture = ResPool::getInstance().getTexture("exit.png");
+    exitRect->setTexture(exitTexture.get());
     exitRect->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
     drawables_.push_back(exitRect);
 
-    // // The Title
-    // sf::Text title;
-    // sf::Font font;
-    // font.loadFromFile(ASSETS_DIR "shsmin.ttf");
-    // title.setFont(font);
-    // title.setString(L"扫雷");
-    // title.setCharacterSize(5.1 DP);
-    // title.setFillColor(TITLE_COLOR);
-    // title.setPosition(16 DP, TITLE_Y);
-    // auto titleDrawable = std::make_shared<sf::Text>(title);
-    // drawables_.push_back(titleDrawable);
+    // The Title
+    sf::Text title;
+    auto font = ResPool::getInstance().getFont("shsmin.ttf");
+    title.setFont(*font);
+    title.setString(L"扫雷");
+    title.setCharacterSize(5.1 DP);
+    title.setFillColor(TITLE_COLOR);
+    title.setPosition(16 DP, TITLE_Y);
+    auto titleDrawable = std::make_shared<sf::Text>(title);
+    drawables_.push_back(titleDrawable);
 }

@@ -34,7 +34,7 @@ void Game::mainLoop() {
             }
         }
 
-        window.clear();
+        window.clear(sf::Color::White);
 
         // Update scene
         assert(_curr_scene != nullptr);
