@@ -100,7 +100,7 @@ namespace sf {
         /// \return Number of points of the rounded rectangle
         ///
         ////////////////////////////////////////////////////////////
-        virtual std::size_t getPointCount() const;
+        std::size_t getPointCount() const override;
 
         ////////////////////////////////////////////////////////////
         /// \brief Get a point of the rounded rectangle
@@ -112,7 +112,7 @@ namespace sf {
         /// \return Index-th point of the shape
         ///
         ////////////////////////////////////////////////////////////
-        virtual sf::Vector2f getPoint(std::size_t index) const;
+        sf::Vector2f getPoint(std::size_t index) const override;
 
     private:
         ////////////////////////////////////////////////////////////

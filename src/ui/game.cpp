@@ -3,9 +3,9 @@
 #include "ui/scenes/field_scene.hpp"
 #include "ui/scenes/menu_scene.hpp"
 
+#include <SFML/Window/Event.hpp>
 #include <cassert>
 #include <memory>
-#include <SFML/Window/Event.hpp>
 
 Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), WIN_TITLE, sf::Style::None) {}
 
@@ -35,7 +35,7 @@ void Game::mainLoop() {
             }
         }
 
-        window.clear(sf::Color::White);
+        window.clear(TITLE_BG_COLOR);
 
         // Update scene
         assert(_curr_scene != nullptr);

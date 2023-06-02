@@ -17,7 +17,7 @@ using spdlog::warn;
 #define WIN_TITLE L"Material 3 扫雷"
 
 #define ASSETS_DIR "../src/ui/assets/"
-#define TITLE_BG_COLOR sf::Color{ 0xF6FCFFFF }
+#define TITLE_BG_COLOR sf::Color{ 0xF1FAFEFF }
 #define TITLE_COLOR sf::Color{ 0x00547AFF }
 #define TITLE_Y 3.5 DP
 

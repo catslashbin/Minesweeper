@@ -70,7 +70,7 @@ namespace sf {
     ////////////////////////////////////////////////////////////
     sf::Vector2f RoundedRectangleShape::getPoint(std::size_t index) const {
         if (index >= myCornerPointCount * 4)
-            return sf::Vector2f(0, 0);
+            return {0, 0};
 
         float deltaAngle = 90.0f / (myCornerPointCount - 1);
         sf::Vector2f center;
@@ -94,9 +94,11 @@ namespace sf {
                 center.x = mySize.x - myRadius;
                 center.y = mySize.y - myRadius;
                 break;
+            default:
+                break;
         }
 
-        return sf::Vector2f(myRadius * cos(deltaAngle * (index - centerIndex) * pi / 180) + center.x,
-                            -myRadius * sin(deltaAngle * (index - centerIndex) * pi / 180) + center.y);
+        return {myRadius * cos(deltaAngle * (index - centerIndex) * pi / 180) + center.x,
+                -myRadius * sin(deltaAngle * (index - centerIndex) * pi / 180) + center.y};
     }
 } // namespace sf

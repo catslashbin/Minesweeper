@@ -2,6 +2,7 @@
 #include "menu_scene.hpp"
 #include "ui/consts.hpp"
 #include "ui/utils/res_pool.hpp"
+#include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -23,10 +24,11 @@ void FieldScene::update() {
 FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
     : Scene(window), mine_field_(field_length, field_height, num_mines) {
 
-    // Top Bar
-    auto rect = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH, 13 DP));
-    rect->setFillColor(TITLE_BG_COLOR);
-    drawables_.push_back(rect);
+    // The Rounded Center Part
+    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH, WIN_HEIGHT + 5 DP), 10 DP, 4);
+    round->setPosition(0, 13 DP);
+    round->setFillColor(sf::Color::White);
+    drawables_.push_back(round);
 
     // The Menu Icon
     auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
