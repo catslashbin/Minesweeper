@@ -1,6 +1,7 @@
 #include "menu_scene.hpp"
 #include "field_scene.hpp"
 #include "ui/consts.hpp"
+#include <SFML/Graphics/RectangleShape.hpp>
 
 void MenuScene::update() {
 
@@ -15,4 +16,9 @@ void MenuScene::update() {
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     // Do some initialization
+
+    // Background Color
+    auto rect = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH, WIN_HEIGHT));
+    rect->setFillColor(TITLE_BG_COLOR);
+    drawables_.push_back(rect);
 }
