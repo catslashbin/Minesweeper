@@ -1,10 +1,10 @@
 #include "game.hpp"
 #include "consts.hpp"
 #include "ui/scenes/menu_scene.hpp"
-#include <SFML/Window/Event.hpp>
+
 #include <cassert>
 #include <memory>
-
+#include <SFML/Window/Event.hpp>
 
 Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), WIN_TITLE, sf::Style::None) {}
 
@@ -53,6 +53,8 @@ void Game::mainLoop() {
 }
 
 void Game::start() {
+
+    info("MineSweeper start.");
 
     // Initialize current scene as Menu
     _curr_scene = std::make_shared<MenuScene>(window);

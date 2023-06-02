@@ -1,6 +1,12 @@
 #ifndef MINESWEEPER_CONSTS_HPP
 #define MINESWEEPER_CONSTS_HPP
 
+#include <spdlog/spdlog.h>
+
+using spdlog::info;
+using spdlog::warn;
+using spdlog::debug;
+
 /* clang-format off */
 
 #define DP *8

@@ -39,6 +39,7 @@ add_executable(
         src/ui/res_pool.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
+find_package(fmt REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})
 
-target_link_libraries(Minesweeper PRIVATE sfml-graphics sfml-audio sfml-window sfml-system)
+target_link_libraries(Minesweeper PRIVATE sfml-graphics sfml-audio sfml-window sfml-system fmt::fmt)
