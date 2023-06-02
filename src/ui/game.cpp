@@ -20,21 +20,15 @@ void Game::mainLoop() {
             if (event.type == sf::Event::Closed)
                 window.close();
             // Draggable borderless window
-            else if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
                     grabbedOffset = window.getPosition() - sf::Mouse::getPosition();
                     grabbedWindow = true;
                 }
-            }
-            else if (event.type == sf::Event::MouseButtonReleased)
-            {
+            } else if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.mouseButton.button == sf::Mouse::Left)
                     grabbedWindow = false;
-            }
-            else if (event.type == sf::Event::MouseMoved)
-            {
+            } else if (event.type == sf::Event::MouseMoved) {
                 if (grabbedWindow)
                     window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
             }
@@ -49,6 +43,9 @@ void Game::mainLoop() {
         if (_curr_scene->has_returned) {
             // Switch scene
             _curr_scene = _curr_scene->next_scene;
+        } else {
+            // Render current scene
+            _curr_scene->render();
         }
 
         window.display();

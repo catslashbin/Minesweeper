@@ -12,7 +12,8 @@
 
 class Scene {
 protected:
-    sf::RenderWindow &_window;
+    sf::RenderWindow &window_;
+    std::vector<std::shared_ptr<sf::Drawable>> drawables_{};
 
     void changeScene(std::shared_ptr<Scene> target_scene);
 
@@ -20,9 +21,11 @@ public:
     std::shared_ptr<Scene> next_scene = nullptr;
     bool has_returned = false;
 
-    explicit Scene(sf::RenderWindow &window) : _window(window) {}
+    explicit Scene(sf::RenderWindow &window) : window_(window) {}
 
     virtual void update() = 0;
+
+    void render();
 };
 
 
