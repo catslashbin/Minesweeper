@@ -1,7 +1,7 @@
 #include "field_scene.hpp"
 #include "menu_scene.hpp"
 #include "ui/consts.hpp"
-#include "ui/res_pool.hpp"
+#include "ui/utils/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -39,7 +39,7 @@ FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_hei
     auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto restartTexture = ResPool::getInstance().getTexture("restart.png");
     restartRect->setTexture(restartTexture.get());
-    restartRect->setPosition(WIN_WIDTH - 20 DP, TITLE_Y);
+    restartRect->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
     drawables_.push_back(restartRect);
 
     // The Exit Icon

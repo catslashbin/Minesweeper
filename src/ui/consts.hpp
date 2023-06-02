@@ -3,13 +3,14 @@
 
 #include <spdlog/spdlog.h>
 
+using spdlog::debug;
 using spdlog::info;
 using spdlog::warn;
-using spdlog::debug;
 
 /* clang-format off */
 
 #define DP *8
+#define RAWDP 8
 #define ARCDP /8
 #define WIN_WIDTH 120 DP
 #define WIN_HEIGHT 120 DP

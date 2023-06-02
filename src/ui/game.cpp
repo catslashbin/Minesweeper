@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "consts.hpp"
+#include "ui/scenes/field_scene.hpp"
 #include "ui/scenes/menu_scene.hpp"
 
 #include <cassert>
@@ -57,7 +58,7 @@ void Game::start() {
     info("MineSweeper start.");
 
     // Initialize current scene as Menu
-    _curr_scene = std::make_shared<MenuScene>(window);
+    _curr_scene = std::make_shared<FieldScene>(window, 10, 10, 10);
 
     // Enable vertical sync
     window.setVerticalSyncEnabled(true);
