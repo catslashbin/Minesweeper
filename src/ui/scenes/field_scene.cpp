@@ -4,7 +4,6 @@
 #include "ui/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Texture.hpp>
 
 void FieldScene::update() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -22,9 +21,7 @@ void FieldScene::update() {
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
-    : Scene(window) { // }, mine_field_(field_length, field_height, num_mines) {
-
-    // FIXME: Icon not loaded! Implement a resource pool to fix.
+    : Scene(window), mine_field_(field_length, field_height, num_mines) {
 
     // Top Bar
     auto rect = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH, 13 DP));

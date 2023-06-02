@@ -6,7 +6,7 @@
 
 class FieldScene : public Scene {
 private:
-    // MineField mine_field_;
+    CORE::MineField mine_field_;
 
 public:
     FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines);
