@@ -50,49 +50,56 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     easy.setString(L"简单");
     easy.setCharacterSize(4.3 DP);
     easy.setFillColor(TITLE_COLOR);
-    easy.setPosition(14 DP, 29 DP);
+    easy.setPosition(14 DP, 28 DP);
     drawables_.push_back(std::make_shared<sf::Text>(easy));
 
     sf::Text easyBelow = easy;
     easyBelow.setString(L"9x9棋盘 10个雷");
     easyBelow.setCharacterSize(3 DP);
     easyBelow.setFillColor(SECONDARY_COLOR);
-    easyBelow.setPosition(14 DP, 35 DP);
+    easyBelow.setPosition(14 DP, 34 DP);
     drawables_.push_back(std::make_shared<sf::Text>(easyBelow));
 
     sf::Text medium = easy;
     medium.setString(L"中级");
-    medium.setPosition(14 DP, 43 DP);
+    medium.setPosition(14 DP, 42 DP);
     drawables_.push_back(std::make_shared<sf::Text>(medium));
 
     sf::Text mediumBelow = easyBelow;
     mediumBelow.setString(L"16x16棋盘 40个雷");
-    mediumBelow.setPosition(14 DP, 49 DP);
+    mediumBelow.setPosition(14 DP, 48 DP);
     drawables_.push_back(std::make_shared<sf::Text>(mediumBelow));
 
     sf::Text diff = easy;
     diff.setString(L"困难");
-    diff.setPosition(14 DP, 57 DP);
+    diff.setPosition(14 DP, 56 DP);
     drawables_.push_back(std::make_shared<sf::Text>(diff));
 
     sf::Text diffBelow = easyBelow;
     diffBelow.setString(L"16x30棋盘 99个雷");
-    diffBelow.setPosition(14 DP, 63 DP);
+    diffBelow.setPosition(14 DP, 62 DP);
     drawables_.push_back(std::make_shared<sf::Text>(diffBelow));
 
     // The Split Line
     auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 0.5 DP));
-    line->setPosition(5 DP, 70 DP);
+    line->setPosition(5 DP, 69 DP);
     line->setFillColor(TITLE_BG_COLOR);
     drawables_.push_back(line);
 
     sf::Text custom = easy;
     custom.setString(L"自定义");
-    custom.setPosition(14 DP, 74 DP);
+    custom.setPosition(14 DP, 73 DP);
     drawables_.push_back(std::make_shared<sf::Text>(custom));
 
     sf::Text customBelow = easyBelow;
     customBelow.setString(L"自定义棋盘大小和雷数");
-    customBelow.setPosition(14 DP, 80 DP);
+    customBelow.setPosition(14 DP, 79 DP);
     drawables_.push_back(std::make_shared<sf::Text>(customBelow));
+
+    // The Forth Icon
+    auto forthRect = sf::RectangleShape(sf::Vector2f(6 DP, 6 DP));
+    auto forthTexture = ResPool::getInstance().getTexture("forth.png");
+    forthRect.setTexture(forthTexture.get());
+    forthRect.setPosition(WIN_WIDTH - 17 DP, 75 DP);
+    drawables_.push_back(std::make_shared<sf::RectangleShape>(forthRect));
 }
