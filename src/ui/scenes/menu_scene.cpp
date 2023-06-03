@@ -1,20 +1,12 @@
 #include "menu_scene.hpp"
 #include "field_scene.hpp"
+#include "ui/clickable.hpp"
 #include "ui/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void MenuScene::update() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        // Trigger scene change
-        sf::Vector2 position = sf::Mouse::getPosition(window_);
-        // The Back Icon
-        if (position.x ARCDP >= 8 && position.x ARCDP <= 13 && position.y ARCDP >= 12 && position.y ARCDP <= 19) {
-            changeScene(std::make_shared<FieldScene>(window_, 10, 10, 10));
-        }
-    }
-}
+void MenuScene::update() {}
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     // Do some initialization
@@ -29,9 +21,12 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     registerWidget(round);
 
     // The Back Icon
-    auto backRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
+    auto backRect = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
     backRect->setTexture(ResPool::getTexture("back.png").get());
     backRect->setPosition(8 DP, 12 DP);
+    backRect->setOnLeftClickHandler([this] {
+        changeScene(std::make_shared<FieldScene>(window_, 10, 10, 10));
+    });
     registerWidget(backRect);
 
     // The Title

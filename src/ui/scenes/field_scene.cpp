@@ -7,19 +7,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-void FieldScene::update() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        sf::Vector2 position = sf::Mouse::getPosition(window_);
-        // // The Menu Icon
-        // if (position.x ARCDP >= 4 && position.x ARCDP <= 9 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
-        //     changeScene(std::make_shared<MenuScene>(window_));
-        // }
-        // The Exit Icon
-        if (position.x ARCDP >= WIN_WIDTH ARCDP - 11 && position.x ARCDP <= WIN_WIDTH ARCDP - 4 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
-            window_.close();
-        }
-    }
-}
+void FieldScene::update() {}
 
 void FieldScene::setupUI() {
     // The Rounded Center Part
@@ -29,8 +17,7 @@ void FieldScene::setupUI() {
     registerWidget(round);
 
     // The Menu Icon
-    auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    auto menuButton = std::make_shared<Clickable>(menuRect, window_);
+    auto menuButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
     menuButton->setTexture(ResPool::getTexture("menu.png").get());
     menuButton->setPosition(4 DP, TITLE_Y);
     menuButton->setOnLeftClickHandler([this]() {
@@ -39,22 +26,26 @@ void FieldScene::setupUI() {
     registerWidget(menuButton);
 
     // The Restart Icon
-    auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    restartRect->setTexture(ResPool::getTexture("restart.png").get());
-    restartRect->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
-    registerWidget(restartRect);
+    auto restartButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
+    restartButton->setTexture(ResPool::getTexture("restart.png").get());
+    restartButton->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
+    restartButton->setOnLeftClickHandler([this]() {
+        // Restart
+    });
+    registerWidget(restartButton);
 
     // The Exit Icon
-    auto exitRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    auto exitTexture = ResPool::getTexture("exit.png");
-    exitRect->setTexture(exitTexture.get());
-    exitRect->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
-    registerWidget(exitRect);
+    auto exitButton = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
+    exitButton->setTexture(ResPool::getTexture("exit.png").get());
+    exitButton->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
+    exitButton->setOnLeftClickHandler([this]() {
+        exit(0);
+    });
+    registerWidget(exitButton);
 
     // The Title
     sf::Text title;
-    auto font = ResPool::getFont("shsmin.ttf");
-    title.setFont(*font);
+    title.setFont(*ResPool::getFont("shsmin.ttf"));
     title.setString(L"扫雷");
     title.setCharacterSize(5.1 DP);
     title.setFillColor(TITLE_COLOR);

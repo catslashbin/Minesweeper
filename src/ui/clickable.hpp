@@ -8,6 +8,9 @@
 #include <memory>
 #include <utility>
 
+#define CLICKABLE(T, ...) std::make_shared<Clickable>(std::make_shared<T>(T(__VA_ARGS__)), window_)
+#define MAKE_CLICKABLE(S) std::make_shared<Clickable>(S, window_)
+
 class Clickable : public sf::Shape {
 private:
     bool last_is_left_clicked_ = false;
