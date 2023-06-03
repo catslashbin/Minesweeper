@@ -37,7 +37,7 @@ void FieldScene::setupUI() {
     // The Exit Icon
     auto exitButton = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
     exitButton->setTexture(ResPool::getTexture("exit.png").get());
-    exitButton->setPosition(win_width_ - 10.4 DP, TITLE_Y);
+    exitButton->setPosition(static_cast<float>(win_width_ - 10.4 DP), TITLE_Y);
     exitButton->setOnLeftClickHandler([this]() {
         exit(0);
     });
@@ -47,7 +47,7 @@ void FieldScene::setupUI() {
     sf::Text title;
     title.setFont(*ResPool::getFont("shsmin.ttf"));
     title.setString(L"扫雷");
-    title.setCharacterSize(5.1 DP);
+    title.setCharacterSize(static_cast<unsigned int>(5.1 DP));
     title.setFillColor(TITLE_COLOR);
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);

@@ -27,8 +27,7 @@ void MenuScene::update() {
                 toChangeSceneNotCustom = true;
             }
             if (toChangeSceneNotCustom) {
-                resize(sf::FloatRect(0, 0, Difficulty::WindowSize[difficulty_][0],
-                                     Difficulty::WindowSize[difficulty_][1]));
+                resize(sf::Vector2f(Difficulty::WindowSize[difficulty_][0], Difficulty::WindowSize[difficulty_][1]));
                 changeScene(std::make_shared<FieldScene>(window_, difficulty_));
             }
             // Custom
@@ -56,8 +55,7 @@ void MenuScene::setupUI() {
     backRect->setTexture(ResPool::getTexture("back.png").get());
     backRect->setPosition(8 DP, 12 DP);
     backRect->setOnLeftClickHandler([this] {
-        resize(sf::FloatRect(0, 0, Difficulty::WindowSize[difficulty_][0],
-                             Difficulty::WindowSize[difficulty_][1]));
+        resize(sf::Vector2f(Difficulty::WindowSize[difficulty_][0], Difficulty::WindowSize[difficulty_][1]));
         changeScene(std::make_shared<FieldScene>(window_, difficulty_));
     });
     registerWidget(backRect);
@@ -66,7 +64,7 @@ void MenuScene::setupUI() {
     sf::Text title;
     title.setFont(*font);
     title.setString(L"菜单");
-    title.setCharacterSize(5.1 DP);
+    title.setCharacterSize(static_cast<unsigned int>(5.1 DP));
     title.setFillColor(TITLE_COLOR);
     title.setPosition(20 DP, 12 DP);
     registerWidget(std::make_shared<sf::Text>(title));
@@ -75,7 +73,7 @@ void MenuScene::setupUI() {
     sf::Text easy;
     easy.setFont(*font);
     easy.setString(L"简单");
-    easy.setCharacterSize(4.3 DP);
+    easy.setCharacterSize(static_cast<unsigned int>(4.3 DP));
     easy.setFillColor(TITLE_COLOR);
     easy.setPosition(14 DP, 28 DP);
     registerWidget(std::make_shared<sf::Text>(easy));
@@ -133,7 +131,7 @@ void MenuScene::setupUI() {
     sf::Text proudly = easyBelow;
     proudly.setString("Developed by Group 34 (Catslashbin / Tianzeds). ");
     proudly.setPosition(14 DP, 95 DP);
-    proudly.setCharacterSize(2.6 DP);
+    proudly.setCharacterSize(static_cast<unsigned int>(2.6 DP));
     registerWidget(std::make_shared<sf::Text>(proudly));
     proudly.setString("Proudly using cross-platform very-low-level UI library SFML \n"
                       "with purely-self-written Material 3 components.");

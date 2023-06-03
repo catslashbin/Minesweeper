@@ -41,7 +41,7 @@ public:
     void render();
 
 public:
-    void resize(sf::FloatRect area);
+    void resize(sf::Vector2f area);
 };
 
 #endif //MINESWEEPER_SCENE_HPP
