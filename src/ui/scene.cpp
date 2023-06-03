@@ -1,7 +1,7 @@
 
 #include "scene.hpp"
-#include "clickable.hpp"
 #include "consts.hpp"
+#include "ui/utils/clickable.hpp"
 
 #include <cassert>
 #include <utility>
@@ -11,7 +11,7 @@ void Scene::changeScene(std::shared_ptr<Scene> target_scene) {
     next_scene = std::move(target_scene);
 }
 
-void Scene::registerWidget(const std::shared_ptr<sf::Drawable>& widget) {
+void Scene::registerWidget(const std::shared_ptr<sf::Drawable> &widget) {
     widgets_.push_back(widget);
 }
 
