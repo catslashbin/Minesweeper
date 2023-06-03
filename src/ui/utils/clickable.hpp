@@ -18,13 +18,14 @@ private:
     bool last_is_double_clicked_ = false;
     bool last_is_hovering_ = false;
 
-    sf::RenderWindow &window_;
-    std::shared_ptr<sf::Shape> m_shape_;
-
     std::function<void(void)> on_left_click_handler_ = []() {};
     std::function<void(void)> on_right_click_handler_ = []() {};
     std::function<void(void)> on_double_click_handler_ = []() {};
     std::function<void(bool is_hover)> on_hover_change_handler_ = [](bool is_hover) {};
+
+protected:
+    sf::RenderWindow &window_;
+    std::shared_ptr<sf::Shape> shape_;
 
 public:
     explicit Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window);

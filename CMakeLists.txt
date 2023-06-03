@@ -38,7 +38,7 @@ add_executable(
         src/ui/utils/res_pool.cpp
         src/ui/utils/res_pool.hpp
         src/ui/utils/rounded.hpp
-        src/ui/utils/rounded.cpp)
+        src/ui/utils/rounded.cpp src/ui/utils/mine_cell.cpp src/ui/utils/mine_cell.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 find_package(spdlog REQUIRED)
