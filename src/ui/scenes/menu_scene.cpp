@@ -26,14 +26,14 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 65 DP), 3 DP, 4);
     round->setPosition(5 DP, 23 DP);
     round->setFillColor(sf::Color::White);
-    drawables_.push_back(round);
+    registerWidget(round);
 
     // The Back Icon
     auto backRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto backTexture = ResPool::getInstance().getTexture("back.png");
     backRect->setTexture(backTexture.get());
     backRect->setPosition(8 DP, 12 DP);
-    drawables_.push_back(backRect);
+    registerWidget(backRect);
 
     // The Title
     sf::Text title;
@@ -42,7 +42,7 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     title.setCharacterSize(5.1 DP);
     title.setFillColor(TITLE_COLOR);
     title.setPosition(20 DP, 12 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(title));
+    registerWidget(std::make_shared<sf::Text>(title));
 
     // Difficulty Labels
     sf::Text easy;
@@ -51,55 +51,55 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     easy.setCharacterSize(4.3 DP);
     easy.setFillColor(TITLE_COLOR);
     easy.setPosition(14 DP, 28 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(easy));
+    registerWidget(std::make_shared<sf::Text>(easy));
 
     sf::Text easyBelow = easy;
     easyBelow.setString(L"9x9棋盘 10个雷");
     easyBelow.setCharacterSize(3 DP);
     easyBelow.setFillColor(SECONDARY_COLOR);
     easyBelow.setPosition(14 DP, 34 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(easyBelow));
+    registerWidget(std::make_shared<sf::Text>(easyBelow));
 
     sf::Text medium = easy;
     medium.setString(L"中级");
     medium.setPosition(14 DP, 42 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(medium));
+    registerWidget(std::make_shared<sf::Text>(medium));
 
     sf::Text mediumBelow = easyBelow;
     mediumBelow.setString(L"16x16棋盘 40个雷");
     mediumBelow.setPosition(14 DP, 48 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(mediumBelow));
+    registerWidget(std::make_shared<sf::Text>(mediumBelow));
 
     sf::Text diff = easy;
     diff.setString(L"困难");
     diff.setPosition(14 DP, 56 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(diff));
+    registerWidget(std::make_shared<sf::Text>(diff));
 
     sf::Text diffBelow = easyBelow;
     diffBelow.setString(L"16x30棋盘 99个雷");
     diffBelow.setPosition(14 DP, 62 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(diffBelow));
+    registerWidget(std::make_shared<sf::Text>(diffBelow));
 
     // The Split Line
     auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 0.5 DP));
     line->setPosition(5 DP, 69 DP);
     line->setFillColor(TITLE_BG_COLOR);
-    drawables_.push_back(line);
+    registerWidget(line);
 
     sf::Text custom = easy;
     custom.setString(L"自定义");
     custom.setPosition(14 DP, 73 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(custom));
+    registerWidget(std::make_shared<sf::Text>(custom));
 
     sf::Text customBelow = easyBelow;
     customBelow.setString(L"自定义棋盘大小和雷数");
     customBelow.setPosition(14 DP, 79 DP);
-    drawables_.push_back(std::make_shared<sf::Text>(customBelow));
+    registerWidget(std::make_shared<sf::Text>(customBelow));
 
     // The Forth Icon
     auto forthRect = sf::RectangleShape(sf::Vector2f(6 DP, 6 DP));
     auto forthTexture = ResPool::getInstance().getTexture("forth.png");
     forthRect.setTexture(forthTexture.get());
     forthRect.setPosition(WIN_WIDTH - 17 DP, 75 DP);
-    drawables_.push_back(std::make_shared<sf::RectangleShape>(forthRect));
+    registerWidget(std::make_shared<sf::RectangleShape>(forthRect));
 }

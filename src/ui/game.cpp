@@ -39,15 +39,22 @@ void Game::mainLoop() {
 
         // Update scene
         assert(_curr_scene != nullptr);
-        _curr_scene->update();
 
-        if (_curr_scene->has_returned) {
-            // Switch scene
+        _curr_scene->handleInteractions();
+        if (_curr_scene->next_scene) {
+            info("Scene changed.");
             _curr_scene = _curr_scene->next_scene;
-        } else {
-            // Render current scene
-            _curr_scene->render();
+            continue;
         }
+
+        _curr_scene->update();
+        if (_curr_scene->next_scene) {
+            info("Scene changed.");
+            _curr_scene = _curr_scene->next_scene;
+            continue;
+        }
+
+        _curr_scene->render();
 
         window.display();
     }
@@ -57,7 +64,7 @@ void Game::start() {
 
     info("MineSweeper start.");
 
-    // Initialize current scene as Menu
+    // Initialize current scene
     _curr_scene = std::make_shared<FieldScene>(window, 10, 10, 10);
 
     // Enable vertical sync

@@ -26,28 +26,28 @@ void FieldScene::setupUI() {
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH, WIN_HEIGHT + 5 DP), 10 DP, 4);
     round->setPosition(0, 13 DP);
     round->setFillColor(sf::Color::White);
-    drawables_.push_back(round);
+    registerWidget(round);
 
     // The Menu Icon
     auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto menuTexture = ResPool::getInstance().getTexture("menu.png");
     menuRect->setTexture(menuTexture.get());
     menuRect->setPosition(4 DP, TITLE_Y);
-    drawables_.push_back(menuRect);
+    registerWidget(menuRect);
 
     // The Restart Icon
     auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto restartTexture = ResPool::getInstance().getTexture("restart.png");
     restartRect->setTexture(restartTexture.get());
     restartRect->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
-    drawables_.push_back(restartRect);
+    registerWidget(restartRect);
 
     // The Exit Icon
     auto exitRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto exitTexture = ResPool::getInstance().getTexture("exit.png");
     exitRect->setTexture(exitTexture.get());
     exitRect->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
-    drawables_.push_back(exitRect);
+    registerWidget(exitRect);
 
     // The Title
     sf::Text title;
@@ -58,7 +58,7 @@ void FieldScene::setupUI() {
     title.setFillColor(TITLE_COLOR);
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
-    drawables_.push_back(titleDrawable);
+    registerWidget(titleDrawable);
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)

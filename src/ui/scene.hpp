@@ -11,19 +11,25 @@
 
 
 class Scene {
+private:
+    std::vector<std::shared_ptr<sf::Drawable>> widgets_{};
+
 protected:
     sf::RenderWindow &window_;
-    std::vector<std::shared_ptr<sf::Drawable>> drawables_{};
 
     void changeScene(std::shared_ptr<Scene> target_scene);
 
+    void registerWidget(const std::shared_ptr<sf::Drawable> &drawable);
+
 public:
     std::shared_ptr<Scene> next_scene = nullptr;
-    bool has_returned = false;
 
+public:
     explicit Scene(sf::RenderWindow &window) : window_(window) {}
 
     virtual void update() = 0;
+
+    void handleInteractions();
 
     void render();
 };
