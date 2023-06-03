@@ -11,7 +11,7 @@ void FieldScene::update() {}
 
 void FieldScene::setupUI() {
     // The Rounded Center Part
-    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH - 6 DP, WIN_HEIGHT - 16 DP), 3 DP, 4);
+    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(DEF_WIN_WIDTH - 6 DP, DEF_WIN_HEIGHT - 16 DP), 3 DP, 4);
     round->setPosition(3 DP, 13 DP);
     round->setFillColor(sf::Color::White);
     registerWidget(round);
@@ -28,7 +28,7 @@ void FieldScene::setupUI() {
     // The Restart Icon
     auto restartButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
     restartButton->setTexture(ResPool::getTexture("restart.png").get());
-    restartButton->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
+    restartButton->setPosition(DEF_WIN_WIDTH - 21 DP, TITLE_Y);
     restartButton->setOnLeftClickHandler([this]() {
         // Restart
     });
@@ -37,7 +37,7 @@ void FieldScene::setupUI() {
     // The Exit Icon
     auto exitButton = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
     exitButton->setTexture(ResPool::getTexture("exit.png").get());
-    exitButton->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
+    exitButton->setPosition(DEF_WIN_WIDTH - 10.4 DP, TITLE_Y);
     exitButton->setOnLeftClickHandler([this]() {
         exit(0);
     });

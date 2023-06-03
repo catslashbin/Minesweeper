@@ -6,7 +6,30 @@
 #include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void MenuScene::update() {}
+void MenuScene::update() {
+    win_width_ = window_.getView().getSize().x;
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2 position = sf::Mouse::getPosition(window_);
+        if (position.x ARCDP >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
+            // Easy
+            if (position.y ARCDP >= 28 && position.y ARCDP <= 37) {
+                // Selected Easy Mode
+            }
+            // Medium
+            if (position.y ARCDP >= 42 && position.y ARCDP <= 51) {
+                // Selected Medium Mode
+            }
+            // Hard
+            if (position.y ARCDP >= 56 && position.y ARCDP <= 65) {
+                // Selected Hard Mode
+            }
+            // Custom
+            if (position.y ARCDP >= 73 && position.y ARCDP <= 82) {
+                // Selected Custom Mode
+            }
+        }
+    }
+}
 
 void MenuScene::setupUI() {
     // Do some initialization
@@ -15,7 +38,7 @@ void MenuScene::setupUI() {
     auto font = ResPool::getFont("shsmin.ttf");
 
     // The Rounded Center Part
-    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 65 DP), 3 DP, 4);
+    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 10 DP, 65 DP), 3 DP, 4);
     round->setPosition(5 DP, 23 DP);
     round->setFillColor(sf::Color::White);
     registerWidget(round);
@@ -75,7 +98,7 @@ void MenuScene::setupUI() {
     registerWidget(std::make_shared<sf::Text>(diffBelow));
 
     // The Split Line
-    auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 0.5 DP));
+    auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(DEF_WIN_WIDTH - 10 DP, 0.5 DP));
     line->setPosition(5 DP, 69 DP);
     line->setFillColor(TITLE_BG_COLOR);
     registerWidget(line);
@@ -93,10 +116,11 @@ void MenuScene::setupUI() {
     // The Forth Icon
     auto forthRect = sf::RectangleShape(sf::Vector2f(6 DP, 6 DP));
     forthRect.setTexture(ResPool::getTexture("forth.png").get());
-    forthRect.setPosition(WIN_WIDTH - 17 DP, 75 DP);
+    forthRect.setPosition(win_width_ - 17 DP, 75 DP);
     registerWidget(std::make_shared<sf::RectangleShape>(forthRect));
 }
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
+    win_width_ = window.getDefaultView().getSize().x;
     setupUI();
 }
