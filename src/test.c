@@ -11,7 +11,7 @@
 #define CLI_DISPLAY_FLAG "!"
 #define CLI_DISPLAY_UNKNOWN "?"
 
-void printField(MineField *field, bool reveal_all, int num_steps, int num_mines_guess) {
+void printField(c_MineField *field, bool reveal_all, int num_steps, int num_mines_guess) {
     printf("%d %d\n", num_steps, num_mines_guess);
 
     // Print vertical grid
@@ -30,7 +30,7 @@ void printField(MineField *field, bool reveal_all, int num_steps, int num_mines_
     for (int y = 0; y < field->height; ++y) {
         printf("%d| ", y);
         for (int x = 0; x < field->length; ++x) {
-            MineCell *cell = getCell(field, x, y);
+            c_MineCell *cell = c_getCell(field, x, y);
             if (reveal_all) {
                 if (cell->is_mine) {
                     printf(CLI_DISPLAY_MINE " ");
@@ -65,9 +65,9 @@ int main() {
 
     // Load configs & create field
     int length = 9, height = 9, num_mines = 10;
-    MineField *field = createField(length, height, num_mines);
-    scatterMines(field, 5, 5);
-    initField(field);
+    c_MineField *field = c_createField(length, height, num_mines);
+    c_scatterMines(field, 5, 5);
+    c_initField(field);
 
     printField(field, true, 0, num_mines);
     printf("Start!\n\n");
@@ -82,19 +82,19 @@ int main() {
         scanf("%d %d %d", &action, &y, &x);
         switch (action) {
             case 1:
-                is_revealed_mine = revealCell(field, x, y);
+                is_revealed_mine = c_revealCell(field, x, y);
                 break;
             case 2:
-                markFlagCell(field, x, y);
+                c_markFlagCell(field, x, y);
                 break;
             case 3:
-                markUnknownCell(field, x, y);
+                c_markUnknownCell(field, x, y);
                 break;
             case 4:
-                clearMarkCell(field, x, y);
+                c_clearMarkCell(field, x, y);
                 break;
             case 9:
-                is_revealed_mine = revealSurrCells(field, x, y);
+                is_revealed_mine = c_revealSurrCells(field, x, y);
                 break;
             default:
                 return -1;
@@ -107,7 +107,7 @@ int main() {
             break;
         }
 
-        if (checkIfWin(field)) {
+        if (c_checkIfWin(field)) {
             printf("Game over, you win\n");
             printField(field, true, num_steps, num_mines - field->num_flagged);
             break;
@@ -117,6 +117,6 @@ int main() {
         printField(field, false, num_steps, num_mines - field->num_flagged);
     }
 
-    freeField(field);
+    c_freeField(field);
     return 0;
 }

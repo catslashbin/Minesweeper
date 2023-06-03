@@ -11,11 +11,11 @@
 #define CLI_DISPLAY_FLAG "!"
 #define CLI_DISPLAY_UNKNOWN "?"
 
-void printField(MineField *field, bool reveal_all, int num_steps, int num_mines_guess) {
+void printField(c_MineField *field, bool reveal_all, int num_steps, int num_mines_guess) {
     printf("%d %d\n", num_steps, num_mines_guess);
     for (int y = 0; y < field->height; ++y) {
         for (int x = 0; x < field->length; ++x) {
-            MineCell *cell = getCell(field, x, y);
+            c_MineCell *cell = c_getCell(field, x, y);
             if (reveal_all) {
                 if (cell->is_mine) {
                     printf(CLI_DISPLAY_MINE);
@@ -71,7 +71,7 @@ int main() {
         default:
             return -1;
     }
-    MineField *field = createField(length, height, num_mines);
+    c_MineField *field = c_createField(length, height, num_mines);
 
     // Load & init field
     char inp;
@@ -86,7 +86,7 @@ int main() {
             continue;
         }
     }
-    initField(field);
+    c_initField(field);
 
     bool is_revealed_mine = false;
     int x, y, action, num_steps = 0;
@@ -100,19 +100,19 @@ int main() {
         y--;
         switch (action) {
             case 1:
-                is_revealed_mine = revealCell(field, x, y);
+                is_revealed_mine = c_revealCell(field, x, y);
                 break;
             case 2:
-                markFlagCell(field, x, y);
+                c_markFlagCell(field, x, y);
                 break;
             case 3:
-                markUnknownCell(field, x, y);
+                c_markUnknownCell(field, x, y);
                 break;
             case 4:
-                clearMarkCell(field, x, y);
+                c_clearMarkCell(field, x, y);
                 break;
             case 9:
-                is_revealed_mine = revealSurrCells(field, x, y);
+                is_revealed_mine = c_revealSurrCells(field, x, y);
                 break;
             default:
                 return -1;
@@ -125,7 +125,7 @@ int main() {
             break;
         }
 
-        if (checkIfWin(field)) {
+        if (c_checkIfWin(field)) {
             printf("Game over, you win\n");
             printField(field, true, num_steps, num_mines - field->num_flagged);
             break;
@@ -135,6 +135,6 @@ int main() {
         printField(field, false, num_steps, num_mines - field->num_flagged);
     }
 
-    freeField(field);
+    c_freeField(field);
     return 0;
 }

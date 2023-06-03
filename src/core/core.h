@@ -8,34 +8,34 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-enum CellState { HIDDEN = 0,
+enum c_CellState { HIDDEN = 0,
                  REVEALED = 1,
                  FLAGGED = 2,
                  UNKNOWN = 3 };
-typedef enum CellState CellState;
+typedef enum c_CellState c_CellState;
 
 /**
  * Struct for cells in the game.
  */
-struct MineCell {
+struct c_MineCell {
     bool is_mine;
-    CellState cell_state;
+    c_CellState cell_state;
     int num_surr_mines;
 };
-typedef struct MineCell MineCell;
+typedef struct c_MineCell c_MineCell;
 
 /**
  * Struct for the field that contains cells.
  */
-struct MineField {
+struct c_MineField {
     size_t length;
     size_t height;
-    MineCell *cells;
+    c_MineCell *cells;
     int num_mines;
     int num_revealed;
     int num_flagged;
 };
-typedef struct MineField MineField;
+typedef struct c_MineField c_MineField;
 
 
 /**
@@ -45,13 +45,13 @@ typedef struct MineField MineField;
  * @param num_mines Numbers of mines
  * @return The field
  */
-MineField *createField(int length, int height, int num_mines);
+c_MineField *c_createField(int length, int height, int num_mines);
 
 /**
  * Init the mine field, including calculating the surrounding mines num of each cell.
  * @param field
  */
-void initField(MineField *field);
+void c_initField(c_MineField *field);
 
 /**
  * Scatter mines in the field randomly.
@@ -60,13 +60,13 @@ void initField(MineField *field);
  * @param init_x
  * @param init_y
  */
-void scatterMines(MineField *field, int init_x, int init_y);
+void c_scatterMines(c_MineField *field, int init_x, int init_y);
 
 /**
  *
  * @param field
  */
-void freeField(MineField *field);
+void c_freeField(c_MineField *field);
 
 /**
  * Get cell struct from the coordinate
@@ -74,7 +74,7 @@ void freeField(MineField *field);
  * @param y
  * @return
  */
-MineCell *getCell(MineField *field, int x, int y);
+c_MineCell *c_getCell(c_MineField *field, int x, int y);
 
 /**
  * Open a cell in the field, and update the field.
@@ -83,22 +83,22 @@ MineCell *getCell(MineField *field, int x, int y);
  * @param y Coordinate y, should be an integer between 0 and height
  * @return Is the opened cell contains a mine
  */
-bool revealCell(MineField *field, int x, int y);
+bool c_revealCell(c_MineField *field, int x, int y);
 
-bool revealSurrCells(MineField *field, int x, int y);
+bool c_revealSurrCells(c_MineField *field, int x, int y);
 
-void markFlagCell(MineField *field, int x, int y);
+void c_markFlagCell(c_MineField *field, int x, int y);
 
-void markUnknownCell(MineField *field, int x, int y);
+void c_markUnknownCell(c_MineField *field, int x, int y);
 
-void clearMarkCell(MineField *field, int x, int y);
+void c_clearMarkCell(c_MineField *field, int x, int y);
 
 /**
  * Check if the user wins.
  * @param field Mine field
  * @return If the user wins
  */
-bool checkIfWin(MineField *field);
+bool c_checkIfWin(c_MineField *field);
 
 /**
  * Calculate the surrounding cells surround the certain coordinates.
@@ -107,6 +107,6 @@ bool checkIfWin(MineField *field);
  * @param y Coordinate y, should be an integer between 0 and height
  * @return Num of the surrounding mines, the maximum is 8
  */
-static int calcSurroundMineNum(MineField *field, int x, int y);
+static int c_calcSurroundMineNum(c_MineField *field, int x, int y);
 
 #endif //MINESWEEPER_CORE_H
