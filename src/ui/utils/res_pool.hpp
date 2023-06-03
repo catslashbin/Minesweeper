@@ -1,3 +1,7 @@
+
+#ifndef MINESWEEPER_RES_POOL_HPP
+#define MINESWEEPER_RES_POOL_HPP
+
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <memory>
@@ -17,3 +21,5 @@ public:
     ResPool(const ResPool &) = delete;
     ResPool &operator=(const ResPool &) = delete;
 };
+
+#endif

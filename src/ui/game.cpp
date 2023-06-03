@@ -4,6 +4,7 @@
 #include "ui/scenes/menu_scene.hpp"
 
 #include <SFML/Window/Event.hpp>
+#include <spdlog/spdlog.h>
 #include <cassert>
 #include <memory>
 
@@ -63,6 +64,7 @@ void Game::mainLoop() {
 void Game::start() {
 
     info("MineSweeper start.");
+    spdlog::set_level(spdlog::level::debug);
 
     // Initialize current scene
     _curr_scene = std::make_shared<FieldScene>(window, 10, 10, 10);
