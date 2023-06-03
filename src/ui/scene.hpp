@@ -38,7 +38,7 @@ public:
     void render();
 
 public:
-    void resize(sf::FloatRect area);
+    [[maybe_unused]] void resize(sf::FloatRect area);
 };
 
 

@@ -117,6 +117,17 @@ void MenuScene::setupUI() {
     forthRect.setTexture(ResPool::getTexture("forth.png").get());
     forthRect.setPosition(win_width_ - 17 DP, 75 DP);
     registerWidget(std::make_shared<sf::RectangleShape>(forthRect));
+
+    // About Text
+    sf::Text proudly = easyBelow;
+    proudly.setString("Developed by Group 34 (Catslashbin / Tianzeds). ");
+    proudly.setPosition(14 DP, 95 DP);
+    proudly.setCharacterSize(2.6 DP);
+    registerWidget(std::make_shared<sf::Text>(proudly));
+    proudly.setString("Proudly using cross-platform very-low-level UI library SFML \n"
+                      "with purely-self-written Material 3 components.");
+    proudly.setPosition(14 DP, 99.5 DP);
+    registerWidget(std::make_shared<sf::Text>(proudly));
 }
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
