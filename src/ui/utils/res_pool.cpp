@@ -1,10 +1,9 @@
 #include "res_pool.hpp"
 #include "ui/consts.hpp"
 
-ResPool &ResPool::getInstance() {
-    static ResPool instance;
-    return instance;
-}
+std::map<std::string, std::shared_ptr<sf::Texture>> ResPool::textures_;
+std::map<std::string, std::shared_ptr<sf::Font>> ResPool::fonts_;
+
 std::shared_ptr<sf::Texture> ResPool::getTexture(const std::string &path) {
     auto it = textures_.find(ASSETS_DIR + path);
     if (it == textures_.end()) {
@@ -17,6 +16,7 @@ std::shared_ptr<sf::Texture> ResPool::getTexture(const std::string &path) {
     }
     return it->second;
 }
+
 std::shared_ptr<sf::Font> ResPool::getFont(const std::string &path) {
     auto it = fonts_.find(ASSETS_DIR + path);
     if (it == fonts_.end()) {

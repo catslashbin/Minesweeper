@@ -20,7 +20,7 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     // Do some initialization
 
     // Font
-    auto font = ResPool::getInstance().getFont("shsmin.ttf");
+    auto font = ResPool::getFont("shsmin.ttf");
 
     // The Rounded Center Part
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH - 10 DP, 65 DP), 3 DP, 4);
@@ -30,8 +30,7 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
 
     // The Back Icon
     auto backRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    auto backTexture = ResPool::getInstance().getTexture("back.png");
-    backRect->setTexture(backTexture.get());
+    backRect->setTexture(ResPool::getTexture("back.png").get());
     backRect->setPosition(8 DP, 12 DP);
     registerWidget(backRect);
 
@@ -98,8 +97,7 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
 
     // The Forth Icon
     auto forthRect = sf::RectangleShape(sf::Vector2f(6 DP, 6 DP));
-    auto forthTexture = ResPool::getInstance().getTexture("forth.png");
-    forthRect.setTexture(forthTexture.get());
+    forthRect.setTexture(ResPool::getTexture("forth.png").get());
     forthRect.setPosition(WIN_WIDTH - 17 DP, 75 DP);
     registerWidget(std::make_shared<sf::RectangleShape>(forthRect));
 }

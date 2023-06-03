@@ -31,8 +31,7 @@ void FieldScene::setupUI() {
     // The Menu Icon
     auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
     auto menuButton = std::make_shared<Clickable>(menuRect, window_);
-    auto menuTexture = ResPool::getInstance().getTexture("menu.png");
-    menuButton->setTexture(menuTexture.get());
+    menuButton->setTexture(ResPool::getTexture("menu.png").get());
     menuButton->setPosition(4 DP, TITLE_Y);
     menuButton->setOnLeftClickHandler([this]() {
         changeScene(std::make_shared<MenuScene>(window_));
@@ -41,21 +40,20 @@ void FieldScene::setupUI() {
 
     // The Restart Icon
     auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    auto restartTexture = ResPool::getInstance().getTexture("restart.png");
-    restartRect->setTexture(restartTexture.get());
+    restartRect->setTexture(ResPool::getTexture("restart.png").get());
     restartRect->setPosition(WIN_WIDTH - 21 DP, TITLE_Y);
     registerWidget(restartRect);
 
     // The Exit Icon
     auto exitRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
-    auto exitTexture = ResPool::getInstance().getTexture("exit.png");
+    auto exitTexture = ResPool::getTexture("exit.png");
     exitRect->setTexture(exitTexture.get());
     exitRect->setPosition(WIN_WIDTH - 10.4 DP, TITLE_Y);
     registerWidget(exitRect);
 
     // The Title
     sf::Text title;
-    auto font = ResPool::getInstance().getFont("shsmin.ttf");
+    auto font = ResPool::getFont("shsmin.ttf");
     title.setFont(*font);
     title.setString(L"扫雷");
     title.setCharacterSize(5.1 DP);
