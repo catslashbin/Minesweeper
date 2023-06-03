@@ -20,7 +20,7 @@ void Clickable::setOnHoverChangeHandler(std::function<void(bool)> handler) {
     on_hover_change_handler_ = std::move(handler);
 }
 
-void Clickable::updateInteraction() {
+void Clickable::handleInteraction() {
     sf::Vector2i mouse_position = sf::Mouse::getPosition(window_);
 
     bool in_bound = getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));

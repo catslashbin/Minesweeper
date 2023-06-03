@@ -34,7 +34,7 @@ public:
 
     void setOnHoverChangeHandler(std::function<void(bool is_hover)> handler);
 
-    void updateInteraction();
+    void handleInteraction();
 };
 
 
