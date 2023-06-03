@@ -1,24 +1,26 @@
-#include "button.hpp"
+#include "clickable.hpp"
 
-Button::Button(const sf::Texture &texture, sf::RenderWindow &window) : sf::Sprite(texture), window_(window) {}
+#include <utility>
 
-void Button::setOnLeftClickHandler(std::function<void(void)> handler) {
+Clickable::Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window) : shape_(std::move(shape)), window_(window) {}
+
+void Clickable::setOnLeftClickHandler(std::function<void(void)> handler) {
     on_left_click_handler_ = std::move(handler);
 }
 
-void Button::setOnRightClickHandler(std::function<void(void)> handler) {
+void Clickable::setOnRightClickHandler(std::function<void(void)> handler) {
     on_right_click_handler_ = std::move(handler);
 }
 
-void Button::setOnDoubleClickHandler(std::function<void(void)> handler) {
+void Clickable::setOnDoubleClickHandler(std::function<void(void)> handler) {
     on_double_click_handler_ = std::move(handler);
 }
 
-void Button::setOnHoverChangeHandler(std::function<void(bool)> handler) {
+void Clickable::setOnHoverChangeHandler(std::function<void(bool)> handler) {
     on_hover_change_handler_ = std::move(handler);
 }
 
-void Button::update() {
+void Clickable::updateInteraction() {
     sf::Vector2i mouse_position = sf::Mouse::getPosition(window_);
 
     bool in_bound = getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));

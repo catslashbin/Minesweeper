@@ -33,8 +33,8 @@ add_executable(
         src/ui/scenes/field_scene.cpp
         src/ui/scenes/field_scene.hpp
         src/core/core.hpp
-        src/ui/button.cpp
-        src/ui/button.hpp
+        src/ui/clickable.cpp
+        src/ui/clickable.hpp
         src/ui/utils/res_pool.cpp
         src/ui/utils/res_pool.hpp
         src/ui/utils/rounded.hpp
