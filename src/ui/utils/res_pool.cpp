@@ -1,5 +1,5 @@
 #include "res_pool.hpp"
-#include "ui/consts.hpp"
+#include "consts.hpp"
 
 std::map<std::string, std::shared_ptr<sf::Texture>> ResPool::textures_;
 std::map<std::string, std::shared_ptr<sf::Font>> ResPool::fonts_;
