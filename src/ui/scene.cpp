@@ -1,7 +1,7 @@
 
 #include "scene.hpp"
-#include "consts.hpp"
 #include "ui/utils/clickable.hpp"
+#include "ui/utils/consts.hpp"
 
 #include <cassert>
 #include <utility>
@@ -31,8 +31,8 @@ void Scene::render() {
 }
 
 /// \n It can be used like: \n
-/// resize(visibleArea(0, 0, static_cast\<float\>(90 DP), static_cast\<float\>(120 DP)));
-[[maybe_unused]] void Scene::resize(sf::FloatRect area) {
+/// resize(sf::FloatRect(0, 0, static_cast\<float\>(90 DP), static_cast\<float\>(120 DP)));
+void Scene::resize(sf::FloatRect area) {
     window_.setSize(sf::Vector2u(static_cast<unsigned int>(area.width),
                                  static_cast<unsigned int>(area.height)));
     window_.setView(sf::View(area));

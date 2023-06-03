@@ -1,11 +1,12 @@
 #include "game.hpp"
-#include "consts.hpp"
 #include "ui/scenes/field_scene.hpp"
+#include "ui/utils/consts.hpp"
+#include "ui/utils/difficulty.hpp"
 
 #include <SFML/Window/Event.hpp>
-#include <spdlog/spdlog.h>
 #include <cassert>
 #include <memory>
+#include <spdlog/spdlog.h>
 
 Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "", sf::Style::Close) {}
 
@@ -68,7 +69,7 @@ void Game::start() {
     view = window.getDefaultView();
 
     // Initialize current scene
-    _curr_scene = std::make_shared<FieldScene>(window, 10, 10, 10);
+    _curr_scene = std::make_shared<FieldScene>(window, Difficulty::Easy);
 
     // Enable vertical sync
     window.setVerticalSyncEnabled(true);

@@ -2,6 +2,7 @@
 #define MINESWEEPER_SCENE_HPP
 
 
+#include "ui/utils/difficulty.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -23,11 +24,13 @@ protected:
 
     float win_width_{};
 
+    Difficulty::Level difficulty_;
+
 public:
     std::shared_ptr<Scene> next_scene = nullptr;
 
 public:
-    explicit Scene(sf::RenderWindow &window) : window_(window) {
+    explicit Scene(sf::RenderWindow &window, Difficulty::Level difficulty) : window_(window), difficulty_(difficulty) {
         win_width_ = window.getSize().x;
     }
 
@@ -38,8 +41,7 @@ public:
     void render();
 
 public:
-    [[maybe_unused]] void resize(sf::FloatRect area);
+    void resize(sf::FloatRect area);
 };
-
 
 #endif //MINESWEEPER_SCENE_HPP

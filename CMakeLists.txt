@@ -27,7 +27,7 @@ add_executable(
         src/ui/scene.cpp
         src/ui/game.hpp
         src/ui/game.cpp
-        src/ui/consts.hpp
+        src/ui/utils/consts.hpp
         src/ui/scenes/menu_scene.hpp
         src/ui/scenes/menu_scene.cpp
         src/ui/scenes/field_scene.cpp
@@ -38,7 +38,8 @@ add_executable(
         src/ui/utils/res_pool.cpp
         src/ui/utils/res_pool.hpp
         src/ui/utils/rounded.hpp
-        src/ui/utils/rounded.cpp)
+        src/ui/utils/rounded.cpp
+        src/ui/utils/difficulty.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 find_package(spdlog REQUIRED)

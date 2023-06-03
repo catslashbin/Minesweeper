@@ -1,7 +1,7 @@
 #include "menu_scene.hpp"
 #include "field_scene.hpp"
-#include "ui/consts.hpp"
 #include "ui/utils/clickable.hpp"
+#include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -11,16 +11,25 @@ void MenuScene::update() {
         sf::Vector2 position = sf::Mouse::getPosition(window_);
         if (position.x ARCDP >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
             // Easy
+            bool toChangeSceneNotCustom = false;
             if (position.y ARCDP >= 28 && position.y ARCDP <= 37) {
-                // Selected Easy Mode
+                difficulty_ = Difficulty::Easy;
+                toChangeSceneNotCustom = true;
             }
             // Medium
             if (position.y ARCDP >= 42 && position.y ARCDP <= 51) {
-                // Selected Medium Mode
+                difficulty_ = Difficulty::Medium;
+                toChangeSceneNotCustom = true;
             }
             // Hard
             if (position.y ARCDP >= 56 && position.y ARCDP <= 65) {
-                // Selected Hard Mode
+                difficulty_ = Difficulty::Hard;
+                toChangeSceneNotCustom = true;
+            }
+            if (toChangeSceneNotCustom) {
+                resize(sf::FloatRect(0, 0, Difficulty::WindowSize[difficulty_][0],
+                                     Difficulty::WindowSize[difficulty_][1]));
+                changeScene(std::make_shared<FieldScene>(window_, difficulty_));
             }
             // Custom
             if (position.y ARCDP >= 73 && position.y ARCDP <= 82) {
@@ -47,7 +56,9 @@ void MenuScene::setupUI() {
     backRect->setTexture(ResPool::getTexture("back.png").get());
     backRect->setPosition(8 DP, 12 DP);
     backRect->setOnLeftClickHandler([this] {
-        changeScene(std::make_shared<FieldScene>(window_, 10, 10, 10));
+        resize(sf::FloatRect(0, 0, Difficulty::WindowSize[difficulty_][0],
+                             Difficulty::WindowSize[difficulty_][1]));
+        changeScene(std::make_shared<FieldScene>(window_, difficulty_));
     });
     registerWidget(backRect);
 
@@ -86,15 +97,15 @@ void MenuScene::setupUI() {
     mediumBelow.setPosition(14 DP, 48 DP);
     registerWidget(std::make_shared<sf::Text>(mediumBelow));
 
-    sf::Text diff = easy;
-    diff.setString(L"困难");
-    diff.setPosition(14 DP, 56 DP);
-    registerWidget(std::make_shared<sf::Text>(diff));
+    sf::Text hard = easy;
+    hard.setString(L"困难");
+    hard.setPosition(14 DP, 56 DP);
+    registerWidget(std::make_shared<sf::Text>(hard));
 
-    sf::Text diffBelow = easyBelow;
-    diffBelow.setString(L"16x30棋盘 99个雷");
-    diffBelow.setPosition(14 DP, 62 DP);
-    registerWidget(std::make_shared<sf::Text>(diffBelow));
+    sf::Text hardBelow = easyBelow;
+    hardBelow.setString(L"16x30棋盘 99个雷");
+    hardBelow.setPosition(14 DP, 62 DP);
+    registerWidget(std::make_shared<sf::Text>(hardBelow));
 
     // The Split Line
     auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(DEF_WIN_WIDTH - 10 DP, 0.5 DP));
@@ -130,6 +141,6 @@ void MenuScene::setupUI() {
     registerWidget(std::make_shared<sf::Text>(proudly));
 }
 
-MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
+MenuScene::MenuScene(sf::RenderWindow &window, Difficulty::Level difficulty) : Scene(window, difficulty) {
     setupUI();
 }

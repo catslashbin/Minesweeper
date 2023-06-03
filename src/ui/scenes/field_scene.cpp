@@ -1,7 +1,7 @@
 #include "field_scene.hpp"
 #include "menu_scene.hpp"
-#include "ui/consts.hpp"
 #include "ui/utils/clickable.hpp"
+#include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -21,7 +21,7 @@ void FieldScene::setupUI() {
     menuButton->setTexture(ResPool::getTexture("menu.png").get());
     menuButton->setPosition(4 DP, TITLE_Y);
     menuButton->setOnLeftClickHandler([this]() {
-        changeScene(std::make_shared<MenuScene>(window_));
+        changeScene(std::make_shared<MenuScene>(window_, difficulty_));
     });
     registerWidget(menuButton);
 
@@ -54,8 +54,8 @@ void FieldScene::setupUI() {
     registerWidget(titleDrawable);
 }
 
-FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
-    : Scene(window), mine_field_(field_length, field_height, num_mines) {
+FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
+    : Scene(window, difficulty), mine_field_(Difficulty::MineData[difficulty][0], Difficulty::MineData[difficulty][1], Difficulty::MineData[difficulty][2]) {
 
     setupUI();
 }

@@ -3,13 +3,15 @@
 
 #include "core/core.hpp"
 #include "ui/scene.hpp"
+#include "ui/utils/consts.hpp"
+#include "ui/utils/difficulty.hpp"
 
 class FieldScene : public Scene {
 private:
     MineField mine_field_;
 
 public:
-    FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines);
+    FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
 
     void update() override;
 
