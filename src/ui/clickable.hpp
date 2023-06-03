@@ -8,7 +8,7 @@
 #include <memory>
 #include <utility>
 
-class Clickable : sf::Shape {
+class Clickable : public sf::Shape {
 private:
     bool last_is_left_clicked_ = false;
     bool last_is_right_clicked_ = false;
@@ -16,7 +16,7 @@ private:
     bool last_is_hovering_ = false;
 
     sf::RenderWindow &window_;
-    std::shared_ptr<sf::Shape> shape_;
+    std::shared_ptr<sf::Shape> m_shape_;
 
     std::function<void(void)> on_left_click_handler_ = []() {};
     std::function<void(void)> on_right_click_handler_ = []() {};
@@ -35,6 +35,12 @@ public:
     void setOnHoverChangeHandler(std::function<void(bool is_hover)> handler);
 
     void handleInteraction();
+
+public:
+    /* Wrapper functions for virtual functions in Shape */
+    std::size_t getPointCount() const override;
+
+    sf::Vector2f getPoint(std::size_t index) const override;
 };
 
 

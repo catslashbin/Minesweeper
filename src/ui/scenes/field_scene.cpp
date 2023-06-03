@@ -1,5 +1,6 @@
 #include "field_scene.hpp"
 #include "menu_scene.hpp"
+#include "ui/clickable.hpp"
 #include "ui/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include "ui/utils/rounded.hpp"
@@ -8,12 +9,11 @@
 
 void FieldScene::update() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        // Trigger scene change
         sf::Vector2 position = sf::Mouse::getPosition(window_);
-        // The Menu Icon
-        if (position.x ARCDP >= 4 && position.x ARCDP <= 9 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
-            changeScene(std::make_shared<MenuScene>(window_));
-        }
+        // // The Menu Icon
+        // if (position.x ARCDP >= 4 && position.x ARCDP <= 9 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
+        //     changeScene(std::make_shared<MenuScene>(window_));
+        // }
         // The Exit Icon
         if (position.x ARCDP >= WIN_WIDTH ARCDP - 11 && position.x ARCDP <= WIN_WIDTH ARCDP - 4 && position.y ARCDP >= 3 && position.y ARCDP <= 10) {
             window_.close();
@@ -30,10 +30,14 @@ void FieldScene::setupUI() {
 
     // The Menu Icon
     auto menuRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
+    auto menuButton = std::make_shared<Clickable>(menuRect, window_);
     auto menuTexture = ResPool::getInstance().getTexture("menu.png");
-    menuRect->setTexture(menuTexture.get());
-    menuRect->setPosition(4 DP, TITLE_Y);
-    registerWidget(menuRect);
+    menuButton->setTexture(menuTexture.get());
+    menuButton->setPosition(4 DP, TITLE_Y);
+    menuButton->setOnLeftClickHandler([this]() {
+        changeScene(std::make_shared<MenuScene>(window_));
+    });
+    registerWidget(menuButton);
 
     // The Restart Icon
     auto restartRect = std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
@@ -65,5 +69,4 @@ FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_hei
     : Scene(window), mine_field_(field_length, field_height, num_mines) {
 
     setupUI();
-
 }

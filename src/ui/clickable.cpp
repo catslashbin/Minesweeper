@@ -2,7 +2,7 @@
 
 #include <utility>
 
-Clickable::Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window) : shape_(std::move(shape)), window_(window) {}
+Clickable::Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window) : m_shape_(shape), window_(window), sf::Shape(*shape) {}
 
 void Clickable::setOnLeftClickHandler(std::function<void(void)> handler) {
     on_left_click_handler_ = std::move(handler);
@@ -53,4 +53,12 @@ void Clickable::handleInteraction() {
     last_is_left_clicked_ = is_left_click;
     last_is_right_clicked_ = is_right_click;
     last_is_double_clicked_ = is_double_click;
+}
+
+std::size_t Clickable::getPointCount() const {
+    return m_shape_->getPointCount();
+}
+
+sf::Vector2f Clickable::getPoint(std::size_t index) const {
+    return m_shape_->getPoint(index);
 }
