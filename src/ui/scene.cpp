@@ -30,6 +30,8 @@ void Scene::render() {
     }
 }
 
+/// \n It can be used like: \n
+/// resize(visibleArea(0, 0, static_cast\<float\>(90 DP), static_cast\<float\>(120 DP)));
 void Scene::resize(sf::FloatRect area) {
     window_.setSize(sf::Vector2u(static_cast<unsigned int>(area.width),
                                  static_cast<unsigned int>(area.height)));

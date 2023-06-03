@@ -120,9 +120,5 @@ void MenuScene::setupUI() {
 }
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
-    sf::FloatRect visibleArea(0, 0, static_cast<float>(90 DP),
-                              static_cast<float>(120 DP));
-    resize(visibleArea);
-
     setupUI();
 }
