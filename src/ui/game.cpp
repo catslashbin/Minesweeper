@@ -7,7 +7,7 @@
 #include <cassert>
 #include <memory>
 
-Game::Game() : window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "", sf::Style::Close) {}
+Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "") {}
 
 void Game::mainLoop() {
 
@@ -32,6 +32,11 @@ void Game::mainLoop() {
             } else if (event.type == sf::Event::MouseMoved) {
                 if (grabbedWindow)
                     window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
+            } else if (event.type == sf::Event::Resized) {
+                sf::FloatRect visibleArea(0, 0, static_cast<float>(event.size.width),
+                                          static_cast<float>(event.size.height));
+                window.setView(sf::View(visibleArea));
+                view = sf::View(visibleArea);
             }
         }
 
@@ -63,6 +68,8 @@ void Game::mainLoop() {
 void Game::start() {
 
     info("MineSweeper start.");
+
+    view = window.getDefaultView();
 
     // Initialize current scene
     _curr_scene = std::make_shared<FieldScene>(window, 10, 10, 10);

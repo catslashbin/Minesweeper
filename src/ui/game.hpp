@@ -13,6 +13,8 @@ private:
 public:
     sf::RenderWindow window;
 
+    sf::View view;
+
     explicit Game();
 
     void mainLoop();

@@ -12,6 +12,9 @@ public:
     void update() override;
 
     void setupUI();
+
+private:
+    float win_width_;
 };
 
 

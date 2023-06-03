@@ -11,9 +11,8 @@ using spdlog::warn;
 
 #define DP *8
 #define ARCDP /8
-#define WIN_WIDTH 120 DP
-#define WIN_HEIGHT 120 DP
-#define WIN_TITLE L"Material 3 扫雷"
+#define DEF_WIN_WIDTH 120 DP
+#define DEF_WIN_HEIGHT 120 DP
 
 #define ASSETS_DIR "../src/ui/assets/"
 #define TITLE_BG_COLOR sf::Color{ 0xF1FAFEFF }
