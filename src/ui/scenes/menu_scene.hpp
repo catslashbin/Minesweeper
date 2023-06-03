@@ -10,6 +10,8 @@ public:
     explicit MenuScene(sf::RenderWindow &window);
 
     void update() override;
+
+    void setupUI();
 };
 
 

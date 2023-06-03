@@ -11,8 +11,8 @@ void FieldScene::update() {}
 
 void FieldScene::setupUI() {
     // The Rounded Center Part
-    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH, WIN_HEIGHT + 5 DP), 10 DP, 4);
-    round->setPosition(0, 13 DP);
+    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH - 6 DP, WIN_HEIGHT - 16 DP), 3 DP, 4);
+    round->setPosition(3 DP, 13 DP);
     round->setFillColor(sf::Color::White);
     registerWidget(round);
 

@@ -8,7 +8,7 @@
 
 void MenuScene::update() {}
 
-MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
+void MenuScene::setupUI() {
     // Do some initialization
 
     // Font
@@ -95,4 +95,8 @@ MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
     forthRect.setTexture(ResPool::getTexture("forth.png").get());
     forthRect.setPosition(WIN_WIDTH - 17 DP, 75 DP);
     registerWidget(std::make_shared<sf::RectangleShape>(forthRect));
+}
+
+MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
+    setupUI();
 }
