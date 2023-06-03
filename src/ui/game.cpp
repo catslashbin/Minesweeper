@@ -1,14 +1,13 @@
 #include "game.hpp"
 #include "consts.hpp"
 #include "ui/scenes/field_scene.hpp"
-#include "ui/scenes/menu_scene.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <spdlog/spdlog.h>
 #include <cassert>
 #include <memory>
 
-Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "") {}
+Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "", sf::Style::Close) {}
 
 void Game::mainLoop() {
 
@@ -33,11 +32,6 @@ void Game::mainLoop() {
             } else if (event.type == sf::Event::MouseMoved) {
                 if (grabbedWindow)
                     window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
-            } else if (event.type == sf::Event::Resized) {
-                sf::FloatRect visibleArea(0, 0, static_cast<float>(event.size.width),
-                                          static_cast<float>(event.size.height));
-                window.setView(sf::View(visibleArea));
-                view = sf::View(visibleArea);
             }
         }
 

@@ -21,17 +21,24 @@ protected:
 
     void registerWidget(const std::shared_ptr<sf::Drawable> &drawable);
 
+    float win_width_{};
+
 public:
     std::shared_ptr<Scene> next_scene = nullptr;
 
 public:
-    explicit Scene(sf::RenderWindow &window) : window_(window) {}
+    explicit Scene(sf::RenderWindow &window) : window_(window) {
+        win_width_ = window.getSize().x;
+    }
 
     virtual void update() = 0;
 
     void handleInteractions();
 
     void render();
+
+public:
+    void resize(sf::FloatRect area);
 };
 
 

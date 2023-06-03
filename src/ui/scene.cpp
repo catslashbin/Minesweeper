@@ -29,3 +29,10 @@ void Scene::render() {
         window_.draw(*d);
     }
 }
+
+void Scene::resize(sf::FloatRect area) {
+    window_.setSize(sf::Vector2u(static_cast<unsigned int>(area.width),
+                                 static_cast<unsigned int>(area.height)));
+    window_.setView(sf::View(area));
+    win_width_ = area.width;
+}

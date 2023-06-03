@@ -7,7 +7,6 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MenuScene::update() {
-    win_width_ = window_.getView().getSize().x;
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2 position = sf::Mouse::getPosition(window_);
         if (position.x ARCDP >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
@@ -121,6 +120,9 @@ void MenuScene::setupUI() {
 }
 
 MenuScene::MenuScene(sf::RenderWindow &window) : Scene(window) {
-    win_width_ = window.getDefaultView().getSize().x;
+    sf::FloatRect visibleArea(0, 0, static_cast<float>(90 DP),
+                              static_cast<float>(120 DP));
+    resize(visibleArea);
+
     setupUI();
 }
