@@ -21,9 +21,7 @@ void FieldScene::update() {
     }
 }
 
-FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
-    : Scene(window), mine_field_(field_length, field_height, num_mines) {
-
+void FieldScene::setupUI() {
     // The Rounded Center Part
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(WIN_WIDTH, WIN_HEIGHT + 5 DP), 10 DP, 4);
     round->setPosition(0, 13 DP);
@@ -61,4 +59,11 @@ FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_hei
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     drawables_.push_back(titleDrawable);
+}
+
+FieldScene::FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines)
+    : Scene(window), mine_field_(field_length, field_height, num_mines) {
+
+    setupUI();
+
 }

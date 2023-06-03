@@ -12,6 +12,8 @@ public:
     FieldScene(sf::RenderWindow &window, int field_length, int field_height, int num_mines);
 
     void update() override;
+
+    void setupUI();
 };
 
 
