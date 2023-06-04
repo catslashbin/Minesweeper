@@ -11,7 +11,7 @@
 #define CLICKABLE(T, ...) std::make_shared<Clickable>(std::make_shared<T>(T(__VA_ARGS__)), window_)
 #define MAKE_CLICKABLE(S) std::make_shared<Clickable>(S, window_)
 
-class Clickable : public sf::Shape {
+class Clickable : virtual public sf::Shape {
 private:
     bool last_is_left_clicked_ = false;
     bool last_is_right_clicked_ = false;
@@ -23,12 +23,8 @@ private:
     std::function<void(void)> on_double_click_handler_ = []() {};
     std::function<void(bool is_hover)> on_hover_change_handler_ = [](bool is_hover) {};
 
-protected:
-    sf::RenderWindow &window_;
-    std::shared_ptr<sf::Shape> shape_;
-
 public:
-    explicit Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window);
+    explicit Clickable() = default;
 
     void setOnLeftClickHandler(std::function<void(void)> handler);
 
@@ -38,13 +34,7 @@ public:
 
     void setOnHoverChangeHandler(std::function<void(bool is_hover)> handler);
 
-    void handleInteraction();
-
-public:
-    /* Wrapper functions for virtual functions in Shape */
-    std::size_t getPointCount() const override;
-
-    sf::Vector2f getPoint(std::size_t index) const override;
+    void handleInteraction(sf::RenderWindow& window);
 };
 
 

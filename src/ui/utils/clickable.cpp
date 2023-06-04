@@ -2,8 +2,6 @@
 
 #include <utility>
 
-Clickable::Clickable(std::shared_ptr<sf::Shape> shape, sf::RenderWindow &window) : shape_(shape), window_(window), sf::Shape(*shape) {}
-
 void Clickable::setOnLeftClickHandler(std::function<void(void)> handler) {
     on_left_click_handler_ = std::move(handler);
 }
@@ -20,8 +18,8 @@ void Clickable::setOnHoverChangeHandler(std::function<void(bool)> handler) {
     on_hover_change_handler_ = std::move(handler);
 }
 
-void Clickable::handleInteraction() {
-    sf::Vector2i mouse_position = sf::Mouse::getPosition(window_);
+void Clickable::handleInteraction(sf::RenderWindow& window) {
+    sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
 
     bool in_bound = getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
     bool is_left_click = in_bound && sf::Mouse::isButtonPressed(sf::Mouse::Left);
@@ -55,10 +53,3 @@ void Clickable::handleInteraction() {
     last_is_double_clicked_ = is_double_click;
 }
 
-std::size_t Clickable::getPointCount() const {
-    return shape_->getPointCount();
-}
-
-sf::Vector2f Clickable::getPoint(std::size_t index) const {
-    return shape_->getPoint(index);
-}
