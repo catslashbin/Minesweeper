@@ -12,6 +12,7 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
     setPosition(sf::Vector2f(position));
     setSize(sf::Vector2f(side_length, side_length));
 
+    setFillColor(NOT_CLICKED_COLOR);
     setCornersRadius(side_length / 10.f);
     setCornerPointCount(4);
 

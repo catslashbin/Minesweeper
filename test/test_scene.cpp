@@ -6,6 +6,7 @@ using namespace sf;
 
 TestScene::TestScene(sf::RenderWindow &window, Difficulty::Level difficulty)
     : Scene(window, difficulty), field_(10, 10, 10, {10 DP, 10 DP}, 5 DP) {
+    field_.setupUI();
 }
 
 void TestScene::update() {
