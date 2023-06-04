@@ -12,12 +12,18 @@ class MineField {
 private:
     GameCore game_core_;
     std::vector<MineCell> cells_;
+    float cell_side_length_;
+    int field_length_;
+    int field_height_;
+    int num_mines_;
+    sf::Vector2f position_;
 
 public:
     MineField(int field_length, int field_height, int num_mines, sf::Vector2f position, float cell_side_length);
 
-    GameState update(sf::RenderWindow& window);
+    GameState update(sf::RenderWindow &window);
 
+    void setupUI();
 };
 
 
