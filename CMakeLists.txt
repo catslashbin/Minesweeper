@@ -8,43 +8,22 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
 
 include_directories(src)
 
-add_executable(Minesweeper-CLI
-        src/core/core.c
-        src/core/core.h
-        src/cli.c)
+file(GLOB_RECURSE CORE CONFIGURE_DEPENDS "src/core/*.cpp" "src/core/*.c")
+file(GLOB_RECURSE UI CONFIGURE_DEPENDS "src/ui/*.cpp")
+file(GLOB_RECURSE TEST CONFIGURE_DEPENDS "test/*.cpp")
 
-add_executable(Minesweeper-test
-        src/core/core.c
-        src/core/core.h
-        src/test.c)
+message("-- ProjectSourceDir: ${PROJECT_SOURCE_DIR}")
+message("-- GLOB: \${CORE}: ${CORE}")
+message("-- GLOB: \${UI}: ${UI}")
+message("-- GLOB: \${TEST}: ${TEST}")
 
-add_executable(
-        Minesweeper
-        src/core/core.c
-        src/core/core.h
-        src/main.cpp
-        src/ui/scene.hpp
-        src/ui/scene.cpp
-        src/ui/game.hpp
-        src/ui/game.cpp
-        src/ui/utils/consts.hpp
-        src/ui/scenes/menu_scene.hpp
-        src/ui/scenes/menu_scene.cpp
-        src/ui/scenes/field_scene.cpp
-        src/ui/scenes/field_scene.hpp
-        src/core/core.hpp
-        src/ui/components/clickable.cpp
-        src/ui/components/clickable.hpp
-        src/ui/utils/res_pool.cpp
-        src/ui/utils/res_pool.hpp
-        src/ui/components/rounded.hpp
-        src/ui/components/rounded.cpp
-        src/ui/utils/difficulty.hpp
-        src/ui/components/mine_cell.cpp
-        src/ui/components/mine_cell.hpp)
+add_executable(Minesweeper-CLI ${CORE} src/cli.c)
+add_executable(Minesweeper-CLI-Test ${CORE} src/test.c)
+add_executable(Minesweeper ${CORE} ${UI} src/main.cpp)
+add_executable(Minesweeper-Test ${CORE} ${UI} ${TEST} test/test_main.cpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 find_package(spdlog REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})
-
 target_link_libraries(Minesweeper PRIVATE sfml-graphics sfml-audio sfml-window sfml-system spdlog::spdlog)
+target_link_libraries(Minesweeper-Test PRIVATE sfml-graphics sfml-audio sfml-window sfml-system spdlog::spdlog)
