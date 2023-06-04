@@ -9,9 +9,18 @@ MineField::MineField(int field_length, int field_height, int num_mines, sf::Vect
     position_ = position;
     cell_side_length_ = cell_side_length;
 
+    init();
+}
+
+void MineField::init() {
     // Initialize game core
     game_core_.scatterMines(1, 1);
     game_core_.initField();
+}
+
+void MineField::reInit() {
+    game_core_ = GameCore(field_length_, field_height_, num_mines_);
+    init();
 }
 
 GameState MineField::update(sf::RenderWindow &window) {

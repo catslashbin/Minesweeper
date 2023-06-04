@@ -23,6 +23,10 @@ public:
 
     GameState update(sf::RenderWindow &window);
 
+    void init();
+
+    void reInit();
+
     void setupUI();
 };
 

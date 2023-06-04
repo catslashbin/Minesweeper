@@ -18,7 +18,6 @@ void FieldScene::update() {
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
 
-    // Field Render
     field_.update(window_);
 }
 
@@ -27,7 +26,8 @@ void FieldScene::setupUI() {
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 6 DP, DEF_WIN_HEIGHT - 16 DP), 3 DP, 4);
     round->setPosition(3 DP, 13 DP);
     round->setFillColor(sf::Color::White);
-    registerWidget(round);
+    // FIXME It'll be upon the Mine Field
+    // registerWidget(round);
 
     // The Menu Icon
     auto menuButton = ClickableShape<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
@@ -43,7 +43,7 @@ void FieldScene::setupUI() {
     restartButton->setTexture(ResPool::getTexture("restart.png").get());
     restartButton->setPosition(win_width_ - 21 DP, TITLE_Y);
     restartButton->setOnLeftClickHandler([this]() {
-        // Restart
+        field_.reInit();
     });
     registerWidget(restartButton);
 
