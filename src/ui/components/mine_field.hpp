@@ -16,7 +16,7 @@ private:
 public:
     MineField(int field_length, int field_height, int num_mines, sf::Vector2f position, float cell_side_length);
 
-    void update(sf::RenderWindow& window);
+    GameState update(sf::RenderWindow& window);
 
 };
 

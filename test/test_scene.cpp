@@ -1,5 +1,6 @@
 #include "test_scene.hpp"
 #include "ui/components/mine_cell.hpp"
+#include <SFML/System/Sleep.hpp>
 
 using namespace std;
 using namespace sf;
@@ -9,5 +10,8 @@ TestScene::TestScene(sf::RenderWindow &window, Difficulty::Level difficulty)
 }
 
 void TestScene::update() {
-    field_.update(window_);
+    auto state = field_.update(window_);
+    if (state == LOSE) {
+        // Process lose
+    }
 }
