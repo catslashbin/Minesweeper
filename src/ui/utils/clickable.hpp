@@ -8,10 +8,9 @@
 #include <memory>
 #include <utility>
 
-#define CLICKABLE(T, ...) std::make_shared<Clickable>(std::make_shared<T>(T(__VA_ARGS__)), window_)
-#define MAKE_CLICKABLE(S) std::make_shared<Clickable>(S, window_)
+#define CLICKABLE(T, ...) std::make_shared<ClickableShape<T>>(__VA_ARGS__)
 
-class Clickable : virtual public sf::Shape {
+class Clickable {
 private:
     bool last_is_left_clicked_ = false;
     bool last_is_right_clicked_ = false;
@@ -26,6 +25,8 @@ private:
 public:
     explicit Clickable() = default;
 
+    virtual ~Clickable() = default;
+
     void setOnLeftClickHandler(std::function<void(void)> handler);
 
     void setOnRightClickHandler(std::function<void(void)> handler);
@@ -35,6 +36,11 @@ public:
     void setOnHoverChangeHandler(std::function<void(bool is_hover)> handler);
 
     void handleInteraction(sf::RenderWindow& window);
+};
+
+template<class T>
+class ClickableShape : public T, public Clickable {
+    using T::T;
 };
 
 

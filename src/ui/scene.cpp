@@ -18,7 +18,7 @@ void Scene::registerWidget(const std::shared_ptr<sf::Drawable> &widget) {
 void Scene::handleInteractions() {
     for (const auto &d: widgets_) {
         if (auto c = dynamic_cast<Clickable *>(d.get())) {
-            c->handleInteraction();
+            c->handleInteraction(window_);
         }
     }
 }

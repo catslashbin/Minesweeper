@@ -44,13 +44,13 @@ void FieldScene::setupUI() {
     registerWidget(round);
 
     // The Menu Icon
-    auto menuButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
-    menuButton->setTexture(ResPool::getTexture("menu.png").get());
-    menuButton->setPosition(4 DP, TITLE_Y);
-    menuButton->setOnLeftClickHandler([this]() {
+    auto menuButton = ClickableShape<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
+    menuButton.setTexture(ResPool::getTexture("menu.png").get());
+    menuButton.setPosition(4 DP, TITLE_Y);
+    menuButton.setOnLeftClickHandler([this]() {
         changeScene(std::make_shared<MenuScene>(window_, difficulty_));
     });
-    registerWidget(menuButton);
+    registerWidget(std::make_shared<ClickableShape<sf::RectangleShape>>(menuButton));
 
     // The Restart Icon
     auto restartButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
@@ -62,7 +62,7 @@ void FieldScene::setupUI() {
     registerWidget(restartButton);
 
     // The Exit Icon
-    auto exitButton = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
+    auto exitButton = CLICKABLE(sf::RectangleShape, sf::Vector2f(6.4 DP, 6.4 DP));
     exitButton->setTexture(ResPool::getTexture("exit.png").get());
     exitButton->setPosition(static_cast<float>(win_width_ - 10.4 DP), TITLE_Y);
     exitButton->setOnLeftClickHandler([this]() {

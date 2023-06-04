@@ -3,8 +3,10 @@
 
 #include "clickable.hpp"
 #include "rounded.hpp"
+#include <SFML/Graphics/RectangleShape.hpp>
 
-class MineCell : Clickable, sf::RoundedRectangleShape {
+class MineCell : public sf::RectangleShape, public Clickable {
+public:
     MineCell(sf::RenderWindow &window, sf::Vector2f position, sf::Vector2f size);
 };
 

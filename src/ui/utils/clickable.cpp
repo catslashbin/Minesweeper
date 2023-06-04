@@ -1,5 +1,6 @@
 #include "clickable.hpp"
 
+#include <cassert>
 #include <utility>
 
 void Clickable::setOnLeftClickHandler(std::function<void(void)> handler) {
@@ -18,10 +19,14 @@ void Clickable::setOnHoverChangeHandler(std::function<void(bool)> handler) {
     on_hover_change_handler_ = std::move(handler);
 }
 
-void Clickable::handleInteraction(sf::RenderWindow& window) {
+void Clickable::handleInteraction(sf::RenderWindow &window) {
     sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
 
-    bool in_bound = getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
+    assert(dynamic_cast<sf::Shape*>(this) != nullptr);
+    bool in_bound = dynamic_cast<sf::Shape *>(this)->getGlobalBounds().contains(
+            static_cast<float>(mouse_position.x),
+            static_cast<float>(mouse_position.y));
+
     bool is_left_click = in_bound && sf::Mouse::isButtonPressed(sf::Mouse::Left);
     bool is_right_click = in_bound && sf::Mouse::isButtonPressed(sf::Mouse::Right);
     bool is_double_click = is_left_click && is_right_click;
@@ -52,4 +57,3 @@ void Clickable::handleInteraction(sf::RenderWindow& window) {
     last_is_right_clicked_ = is_right_click;
     last_is_double_clicked_ = is_double_click;
 }
-

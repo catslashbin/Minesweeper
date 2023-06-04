@@ -51,7 +51,7 @@ void MenuScene::setupUI() {
     registerWidget(round);
 
     // The Back Icon
-    auto backRect = MAKE_CLICKABLE(std::make_shared<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP)));
+    auto backRect = std::make_shared<ClickableShape<sf::RectangleShape>>(sf::Vector2f(6.4 DP, 6.4 DP));
     backRect->setTexture(ResPool::getTexture("back.png").get());
     backRect->setPosition(8 DP, 12 DP);
     backRect->setOnLeftClickHandler([this] {
