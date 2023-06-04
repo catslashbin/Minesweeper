@@ -14,10 +14,11 @@ MineField::MineField(int field_length, int field_height, int num_mines, sf::Vect
     game_core_.initField();
 }
 
-void MineField::update(sf::RenderWindow &window) {
+GameState MineField::update(sf::RenderWindow &window) {
     for (auto &c: cells_) {
         c.update_cell(window);
     }
+    return game_core_.state;
 }
 
 void MineField::setupUI() {

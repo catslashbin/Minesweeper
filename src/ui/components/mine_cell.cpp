@@ -40,6 +40,10 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
     setOnDoubleClickHandler([=, &game_core] {
         game_core.revealSurrCells(x, y);
     });
+
+    // setOnHoverChangeHandler([this](bool is_hover){
+    //     this->onHoverChange(is_hover);
+    // });
 }
 
 void MineCell::update_cell(sf::RenderWindow &window) {
