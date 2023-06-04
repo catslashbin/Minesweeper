@@ -16,6 +16,7 @@ using spdlog::warn;
 
 #define ASSETS_DIR "../src/ui/assets/"
 #define TITLE_BG_COLOR sf::Color{ 0xF1FAFEFF }
+#define NOT_CLICKED_COLOR sf::Color{ 0xE5F7FFFF }
 #define TITLE_COLOR sf::Color{ 0x00547AFF }
 #define SECONDARY_COLOR sf::Color{ 0x699EB5FF }
 #define TITLE_Y 3.5 DP
