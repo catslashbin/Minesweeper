@@ -20,7 +20,7 @@ public:
 
     constexpr static float WindowSize[4][2] = {{DEF_WIN_WIDTH, DEF_WIN_HEIGHT},
                                                {DEF_WIN_WIDTH, DEF_WIN_HEIGHT},
-                                               {1.71 * DEF_WIN_WIDTH, DEF_WIN_HEIGHT},
+                                               {1.66 * DEF_WIN_WIDTH, DEF_WIN_HEIGHT},
                                                {-1, -1}};
 };
 

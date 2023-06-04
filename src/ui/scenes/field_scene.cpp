@@ -17,32 +17,9 @@ void FieldScene::update() {
     title.setPosition(31 DP, TITLE_Y + 0.45 DP);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
-    // Field Block
-    for (int i = 0; i < Difficulty::MineData[difficulty_][1]; i++) {
-        for (int j = 0; j < Difficulty::MineData[difficulty_][0]; j++) {
-            float width = difficulty_ == Difficulty::Easy ? 8 DP : 4.5 DP;
-            float paddingWidth = difficulty_ == Difficulty::Easy ? 11 DP : 6 DP;
-            float left = difficulty_ == Difficulty::Easy ? 12 DP : 13 DP;
-            float top = difficulty_ == Difficulty::Easy ? 17 DP : 18 DP;
-            auto block = CLICKABLE(sf::RoundedRectangleShape, sf::Vector2f(width, width), 1 DP, 4);
-            if (i == 3 && j == 4) {
-                block->setTexture(ResPool::getTexture("1.png").get());
-            } else if (i <= 2 && j <= 5 || i == 2 && j == 6 || i >= 8 && j <= 7) {
-                block->setTexture(ResPool::getTexture("0.png").get());
-            } else if (i == 3 && j == 5) {
-                block->setTexture(ResPool::getTexture("5.png").get());
-            } else if (i == 3 && j == 7) {
-                block->setTexture(ResPool::getTexture("questionmark.png").get());
-            } else if (i == 5 && j == 5) {
-                block->setTexture(ResPool::getTexture("minemark.png").get());
-            } else {
-                block->setFillColor(NOT_CLICKED_COLOR);
-            }
-            block->setPosition(left + static_cast<float>(i) * paddingWidth, top + static_cast<float>(j) * paddingWidth);
-            block->setOnLeftClickHandler([this]() {});
-            registerWidget(block);
-        }
-    }
+
+    // Field Render
+    field_.update(window_);
 }
 
 void FieldScene::setupUI() {
@@ -88,10 +65,15 @@ void FieldScene::setupUI() {
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
+
+    field_.setupUI();
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
-    : Scene(window, difficulty) {
+    : Scene(window, difficulty), field_(Difficulty::MineData[difficulty][1], Difficulty::MineData[difficulty][0],
+                                        Difficulty::MineData[difficulty][2],
+                                        {static_cast<float>(difficulty == Difficulty::Easy ? 14.1 DP : 13 DP), 18 DP},
+                                        difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
 
     setupUI();
 }

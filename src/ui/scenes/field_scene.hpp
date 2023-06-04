@@ -8,6 +8,7 @@
 
 class FieldScene : public Scene {
 private:
+    MineField field_;
 
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
