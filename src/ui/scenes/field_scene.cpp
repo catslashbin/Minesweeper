@@ -8,6 +8,15 @@
 #include <SFML/Graphics/Text.hpp>
 
 void FieldScene::update() {
+    // Field Title
+    sf::Text title;
+    title.setFont(*ResPool::getFont("shsmin.ttf"));
+    title.setString(L"14 操作｜3 雷");
+    title.setCharacterSize(static_cast<unsigned int>(4.4 DP));
+    title.setFillColor(SECONDARY_COLOR);
+    title.setPosition(31 DP, TITLE_Y + 0.45 DP);
+    auto titleDrawable = std::make_shared<sf::Text>(title);
+    registerWidget(titleDrawable);
     // Field Block
     for (int i = 0; i < Difficulty::MineData[difficulty_][1]; i++) {
         for (int j = 0; j < Difficulty::MineData[difficulty_][0]; j++) {
