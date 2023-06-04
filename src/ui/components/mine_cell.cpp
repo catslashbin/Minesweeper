@@ -15,29 +15,29 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
     setCornersRadius(side_length / 10.f);
     setCornerPointCount(4);
 
-    setOnLeftClickHandler([this] {
-        info("Reveal cell: {}, {}", this->x_, this->y_);
-        game_core_.revealCell(this->x_, this->y_);
+    setOnLeftClickHandler([=, &game_core] {
+        info("Reveal cell: {}, {}", x, y);
+        game_core.revealCell(x, y);
     });
 
-    setOnRightClickHandler([this] {
-        switch (game_core_.getCell(x_, y_)->cell_state) {
+    setOnRightClickHandler([=, &game_core] {
+        switch (game_core.getCell(x, y)->cell_state) {
             case HIDDEN:
-                game_core_.markFlagCell(x_, y_);
+                game_core.markFlagCell(x, y);
                 break;
             case FLAGGED:
-                game_core_.markUnknownCell(x_, y_);
+                game_core.markUnknownCell(x, y);
                 break;
             case UNKNOWN:
-                game_core_.clearMarkCell(x_, y_);
+                game_core.clearMarkCell(x, y);
                 break;
             default:
                 break;
         }
     });
 
-    setOnDoubleClickHandler([this] {
-        game_core_.revealSurrCells(x_, y_);
+    setOnDoubleClickHandler([=, &game_core] {
+        game_core.revealSurrCells(x, y);
     });
 }
 
@@ -46,6 +46,7 @@ void MineCell::update_cell(sf::RenderWindow &window) {
     handleInteraction(window);
 
     auto c = game_core_.getCell(x_, y_);
+
     switch (c->cell_state) {
         case REVEALED:
             setTexture(ResPool::getTexture(fmt::format("{}.png", c->num_surr_mines)).get());
@@ -57,9 +58,12 @@ void MineCell::update_cell(sf::RenderWindow &window) {
             setTexture(ResPool::getTexture("minemark.png").get());
             break;
         case UNKNOWN:
-            setTexture(ResPool::getTexture("questionmark").get());
+            setTexture(ResPool::getTexture("questionmark.png").get());
             break;
     }
+
+    if (game_core_.state == LOSE && c->is_mine)
+        setTexture(ResPool::getTexture("mine.png").get());
 
     // Draw cell
     window.draw(*this);

@@ -24,8 +24,7 @@ void Clickable::handleInteraction(sf::RenderWindow &window) {
 
     assert(dynamic_cast<sf::Shape*>(this) != nullptr);
     bool in_bound = dynamic_cast<sf::Shape *>(this)->getGlobalBounds().contains(
-            static_cast<float>(mouse_position.x),
-            static_cast<float>(mouse_position.y));
+            float(mouse_position.x), float(mouse_position.y));
 
     bool is_left_click = in_bound && sf::Mouse::isButtonPressed(sf::Mouse::Left);
     bool is_right_click = in_bound && sf::Mouse::isButtonPressed(sf::Mouse::Right);
@@ -39,7 +38,7 @@ void Clickable::handleInteraction(sf::RenderWindow &window) {
     if (last_is_double_clicked_ && !is_double_click) {
 
         // Skip left & right handler
-        on_left_click_handler_();
+        on_double_click_handler_();
 
     } else {
 
@@ -49,7 +48,7 @@ void Clickable::handleInteraction(sf::RenderWindow &window) {
 
         // Handle right click
         if (last_is_right_clicked_ && !is_right_click)
-            on_left_click_handler_();
+            on_right_click_handler_();
     }
 
     last_is_hovering_ = in_bound;
