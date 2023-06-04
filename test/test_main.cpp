@@ -2,7 +2,6 @@
 
 #include "test_scene.hpp"
 #include "ui/game.hpp"
-#include "ui/scenes/field_scene.hpp"
 
 int main()
 {

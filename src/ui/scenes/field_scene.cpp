@@ -91,9 +91,7 @@ void FieldScene::setupUI() {
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
-    : Scene(window, difficulty), mine_field_(Difficulty::MineData[difficulty][0], Difficulty::MineData[difficulty][1], Difficulty::MineData[difficulty][2]) {
-
-    mine_field_.initField();
+    : Scene(window, difficulty) {
 
     setupUI();
 }

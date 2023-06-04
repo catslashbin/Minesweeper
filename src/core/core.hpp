@@ -7,10 +7,11 @@ extern "C" {
 }
 
 
-class MineField {
+class GameCore {
 
 private:
     c_MineField *field_;
+    bool is_lost = false;
 
 public:
     /**
@@ -19,7 +20,7 @@ public:
      * @param height Height of the field
      * @param num_mines Numbers of mines
      */
-    MineField(int length, int height, int num_mines) {
+    GameCore(int length, int height, int num_mines) {
         field_ = c_createField(length, height, num_mines);
     }
 
@@ -30,7 +31,7 @@ public:
      * @param init_x
      * @param init_y
      */
-    void scatterMines(MineField *field, int init_x, int init_y) {
+    void scatterMines(int init_x, int init_y) {
         c_scatterMines(field_, init_x, init_y);
     }
 
