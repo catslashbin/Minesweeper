@@ -1,9 +1,9 @@
 #include "menu_scene.hpp"
 #include "field_scene.hpp"
-#include "ui/utils/clickable.hpp"
+#include "ui/components/clickable.hpp"
+#include "ui/components/rounded.hpp"
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
-#include "ui/utils/rounded.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void MenuScene::update() {

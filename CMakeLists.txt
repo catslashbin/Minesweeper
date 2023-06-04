@@ -33,15 +33,15 @@ add_executable(
         src/ui/scenes/field_scene.cpp
         src/ui/scenes/field_scene.hpp
         src/core/core.hpp
-        src/ui/utils/clickable.cpp
-        src/ui/utils/clickable.hpp
+        src/ui/components/clickable.cpp
+        src/ui/components/clickable.hpp
         src/ui/utils/res_pool.cpp
         src/ui/utils/res_pool.hpp
-        src/ui/utils/rounded.hpp
-        src/ui/utils/rounded.cpp
+        src/ui/components/rounded.hpp
+        src/ui/components/rounded.cpp
         src/ui/utils/difficulty.hpp
-        src/ui/utils/mine_cell.cpp
-        src/ui/utils/mine_cell.hpp)
+        src/ui/components/mine_cell.cpp
+        src/ui/components/mine_cell.hpp)
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 find_package(spdlog REQUIRED)

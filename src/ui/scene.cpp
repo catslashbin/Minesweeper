@@ -1,6 +1,6 @@
 
 #include "scene.hpp"
-#include "ui/utils/clickable.hpp"
+#include "ui/components/clickable.hpp"
 #include "ui/utils/consts.hpp"
 
 #include <cassert>
