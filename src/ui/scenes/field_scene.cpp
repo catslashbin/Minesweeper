@@ -18,7 +18,15 @@ void FieldScene::update() {
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
 
-    field_.update(window_);
+    // Field Render
+    auto state = field_.update(window_);
+    if (state == LOSE && sceneState_ == RUNNING) {
+        sceneState_ = LOSE;
+        info("You failed.");
+    } else if (state == WIN && sceneState_ == RUNNING) {
+        sceneState_ = WIN;
+        info("You won the game!");
+    }
 }
 
 void FieldScene::setupUI() {
@@ -65,8 +73,6 @@ void FieldScene::setupUI() {
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
-
-    field_.setupUI();
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
@@ -76,4 +82,7 @@ FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
                                         difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
 
     setupUI();
+
+    field_.setupUI();
+    sceneState_ = RUNNING;
 }

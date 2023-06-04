@@ -9,6 +9,7 @@
 class FieldScene : public Scene {
 private:
     MineField field_;
+    GameState sceneState_;
 
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
