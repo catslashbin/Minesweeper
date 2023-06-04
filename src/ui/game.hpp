@@ -6,14 +6,16 @@
 
 #include "scene.hpp"
 
+#ifndef PRIVATE_BUT_DEBUG_PUBLIC
+#define PRIVATE_BUT_DEBUG_PUBLIC private
+#endif
+
 class Game {
-private:
+PRIVATE_BUT_DEBUG_PUBLIC:
     std::shared_ptr<Scene> _curr_scene;
 
 public:
     sf::RenderWindow window;
-
-    sf::View view;
 
     explicit Game();
 

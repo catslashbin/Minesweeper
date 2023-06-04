@@ -3,9 +3,9 @@
 
 #include "ui/scene.hpp"
 
-class TestScene : Scene {
+class TestScene : public Scene {
 public:
-    TestScene(sf::RenderWindow &window_1, Difficulty::Level difficulty, sf::RenderWindow &window);
+    TestScene(sf::RenderWindow &window, Difficulty::Level difficulty);
 
     void update() override;
 };

@@ -8,7 +8,10 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "", sf::Style::Close) {}
+Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "", sf::Style::Close) {
+    // Initialize current scene
+    _curr_scene = std::make_shared<FieldScene>(window, Difficulty::Easy);
+}
 
 void Game::mainLoop() {
 
@@ -65,11 +68,6 @@ void Game::start() {
 
     info("MineSweeper start.");
     spdlog::set_level(spdlog::level::debug);
-
-    view = window.getDefaultView();
-
-    // Initialize current scene
-    _curr_scene = std::make_shared<FieldScene>(window, Difficulty::Easy);
 
     // Enable vertical sync
     window.setVerticalSyncEnabled(true);
