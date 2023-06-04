@@ -42,7 +42,7 @@ void MenuScene::setupUI() {
     // Do some initialization
 
     // Font
-    auto font = ResPool::getFont("shsmin.ttf");
+    auto font = ResPool::getFont("sans.ttf");
 
     // The Rounded Center Part
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 10 DP, 65 DP), 3 DP, 4);

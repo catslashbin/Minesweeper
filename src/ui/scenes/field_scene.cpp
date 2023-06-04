@@ -10,7 +10,7 @@
 void FieldScene::update() {
     // Field Title
     sf::Text title;
-    title.setFont(*ResPool::getFont("shsmin.ttf"));
+    title.setFont(*ResPool::getFont("sans.ttf"));
     title.setString(L"14 操作｜3 雷");
     title.setCharacterSize(static_cast<unsigned int>(4.4 DP));
     title.setFillColor(SECONDARY_COLOR);
@@ -81,7 +81,7 @@ void FieldScene::setupUI() {
 
     // The Title
     sf::Text title;
-    title.setFont(*ResPool::getFont("shsmin.ttf"));
+    title.setFont(*ResPool::getFont("sans.ttf"));
     title.setString(L"扫雷");
     title.setCharacterSize(static_cast<unsigned int>(5.1 DP));
     title.setFillColor(TITLE_COLOR);
