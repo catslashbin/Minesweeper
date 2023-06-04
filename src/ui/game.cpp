@@ -22,7 +22,7 @@ void Game::mainLoop() {
             if (event.type == sf::Event::Closed)
                 window.close();
             // Draggable borderless window
-            else if (event.type == sf::Event::MouseButtonPressed) {
+            /*else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     grabbedOffset = window.getPosition() - sf::Mouse::getPosition();
                     grabbedWindow = true;
@@ -33,7 +33,7 @@ void Game::mainLoop() {
             } else if (event.type == sf::Event::MouseMoved) {
                 if (grabbedWindow)
                     window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
-            }
+            }*/
         }
 
         window.clear(TITLE_BG_COLOR);
