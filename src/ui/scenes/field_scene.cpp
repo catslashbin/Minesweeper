@@ -8,16 +8,6 @@
 #include <SFML/Graphics/Text.hpp>
 
 void FieldScene::update() {
-    // Field Title
-    sf::Text title;
-    title.setFont(*ResPool::getFont("sans.ttf"));
-    title.setString(L"14 操作｜3 雷");
-    title.setCharacterSize(static_cast<unsigned int>(4.4 DP));
-    title.setFillColor(SECONDARY_COLOR);
-    title.setPosition(31 DP, TITLE_Y + 0.45 DP);
-    auto titleDrawable = std::make_shared<sf::Text>(title);
-    registerWidget(titleDrawable);
-
     // Field Render
     auto state = field_.update(window_);
     if (state == LOSE && sceneState_ == RUNNING) {
@@ -34,8 +24,7 @@ void FieldScene::setupUI() {
     auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 6 DP, DEF_WIN_HEIGHT - 16 DP), 3 DP, 4);
     round->setPosition(3 DP, 13 DP);
     round->setFillColor(sf::Color::White);
-    // FIXME It'll be upon the Mine Field
-    // registerWidget(round);
+    registerWidget(round);
 
     // The Menu Icon
     auto menuButton = ClickableShape<sf::RectangleShape>(sf::Vector2f(6.4 DP, 6.4 DP));
@@ -51,7 +40,7 @@ void FieldScene::setupUI() {
     restartButton->setTexture(ResPool::getTexture("restart.png").get());
     restartButton->setPosition(win_width_ - 21 DP, TITLE_Y);
     restartButton->setOnLeftClickHandler([this]() {
-        field_.reInit();
+        field_.reset();
     });
     registerWidget(restartButton);
 
@@ -73,6 +62,18 @@ void FieldScene::setupUI() {
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
+
+    // Field Title
+    sf::Text status_bar;
+    status_bar.setFont(*ResPool::getFont("sans.ttf"));
+    status_bar.setString(L"14 操作｜3 雷");
+    status_bar.setCharacterSize(static_cast<unsigned int>(4.4 DP));
+    status_bar.setFillColor(SECONDARY_COLOR);
+    status_bar.setPosition(31 DP, TITLE_Y + 0.45 DP);
+    registerWidget(std::make_shared<sf::Text>(status_bar));
+
+    // Field
+    field_.registerAsWidget(*this);
 }
 
 FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
@@ -82,7 +83,5 @@ FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
                                         difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
 
     setupUI();
-
-    field_.setupUI();
     sceneState_ = RUNNING;
 }

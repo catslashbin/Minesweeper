@@ -35,3 +35,7 @@ void Scene::resize(sf::Vector2f area) {
     window_.setView(sf::View(sf::FloatRect(0, 0, area.x, area.y)));
     win_width_ = area.x;
 }
+
+Scene::Scene(sf::RenderWindow &window, Difficulty::Level difficulty) : window_(window), difficulty_(difficulty) {
+    win_width_ = window.getSize().x;
+}

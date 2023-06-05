@@ -69,7 +69,4 @@ void MineCell::update_cell(sf::RenderWindow &window) {
 
     if (game_core_.state == LOSE && c->is_mine)
         setTexture(ResPool::getTexture("mine.png").get());
-
-    // Draw cell
-    window.draw(*this);
 }

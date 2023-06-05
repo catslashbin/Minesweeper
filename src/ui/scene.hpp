@@ -20,19 +20,18 @@ protected:
 
     void changeScene(std::shared_ptr<Scene> target_scene);
 
-    void registerWidget(const std::shared_ptr<sf::Drawable> &drawable);
-
     float win_width_{};
 
     Difficulty::Level difficulty_;
 
 public:
+    void registerWidget(const std::shared_ptr<sf::Drawable> &drawable);
+
+public:
     std::shared_ptr<Scene> next_scene = nullptr;
 
 public:
-    explicit Scene(sf::RenderWindow &window, Difficulty::Level difficulty) : window_(window), difficulty_(difficulty) {
-        win_width_ = window.getSize().x;
-    }
+    explicit Scene(sf::RenderWindow &window, Difficulty::Level difficulty);
 
     virtual void update() = 0;
 
@@ -40,7 +39,6 @@ public:
 
     void render();
 
-public:
     void resize(sf::Vector2f area);
 };
 
