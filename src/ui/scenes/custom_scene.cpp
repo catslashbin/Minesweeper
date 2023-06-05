@@ -42,6 +42,15 @@ void CustomScene::setupUI() {
     title.setPosition(20 DP, 12 DP);
     registerWidget(std::make_shared<sf::Text>(title));
 
+    // About Text
+    auto notice = std::make_shared<sf::Text>();
+    notice->setFont(*font);
+    notice->setFillColor(COLOR_SECONDARY);
+    notice->setString(L"提示：双击按钮可以快速增加数值。");
+    notice->setPosition(14.2 DP, 85 DP);
+    notice->setCharacterSize(static_cast<unsigned int>(2.6 DP));
+    registerWidget(notice);
+
     sf::Text l1;
     l1.setFont(*font);
     l1.setString(L"行数");
