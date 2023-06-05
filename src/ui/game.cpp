@@ -16,32 +16,20 @@ Game::Game() : window(sf::VideoMode(DEF_WIN_WIDTH, DEF_WIN_HEIGHT), "", sf::Styl
 void Game::mainLoop() {
 
     sf::Event event{};
-    sf::Vector2i grabbedOffset;
-    bool grabbedWindow = false;
+    size_t fps_counter = 0;
+    sf::Clock fps_clock;
+
     while (window.isOpen()) {
 
-        // Handle events
+        /* Handle events */
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-            // Draggable borderless window
-            /*else if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                    grabbedOffset = window.getPosition() - sf::Mouse::getPosition();
-                    grabbedWindow = true;
-                }
-            } else if (event.type == sf::Event::MouseButtonReleased) {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                    grabbedWindow = false;
-            } else if (event.type == sf::Event::MouseMoved) {
-                if (grabbedWindow)
-                    window.setPosition(sf::Mouse::getPosition() + grabbedOffset);
-            }*/
         }
 
         window.clear(COLOR_TITLE_BG);
 
-        // Update scene
+        /* Update scene */
         assert(_curr_scene != nullptr);
 
         _curr_scene->handleInteractions();
@@ -59,6 +47,14 @@ void Game::mainLoop() {
         }
 
         _curr_scene->render();
+
+        /* Calculate game fps */
+        fps_counter++;
+        if (fps_clock.getElapsedTime().asSeconds() > 5) {
+            debug("Current fps: {}", float(fps_counter) / 5.f);
+            fps_counter = 0;
+            fps_clock.restart();
+        }
 
         window.display();
     }

@@ -17,6 +17,8 @@ private:
     bool last_is_double_clicked_ = false;
     bool last_is_hovering_ = false;
 
+    sf::Clock last_left_click_time_;
+
     std::function<void(void)> on_left_click_handler_ = []() {};
     std::function<void(void)> on_right_click_handler_ = []() {};
     std::function<void(void)> on_double_click_handler_ = []() {};

@@ -27,6 +27,8 @@ using spdlog::warn;
 
 #define TITLE_Y 3.5 DP
 
+#define EPS_DOUBLE_CLICK 300
+
 /* clang-format on */
 
 #endif //MINESWEEPER_CONSTS_HPP
