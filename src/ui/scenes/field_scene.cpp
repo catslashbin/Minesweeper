@@ -16,6 +16,7 @@ void FieldScene::update() {
         scene_state_ = LOSE;
     } else if (state.status == WIN && scene_state_ == RUNNING) {
         scene_state_ = WIN;
+        time_win_ = state.time.asSeconds();
     }
     if (state.status == LOSE) {
         status_drawable_->setFillColor(COLOR_MINE);
@@ -23,7 +24,7 @@ void FieldScene::update() {
         window_.draw(*status_drawable_);
     } else if (state.status == WIN) {
         status_drawable_->setFillColor(COLOR_WIN);
-        status_drawable_->setString(L"胜利！");
+        status_drawable_->setString(fmt::format(L"胜利！用时 {:.2f} 秒", time_win_));
         window_.draw(*status_drawable_);
     } else if (state.status == RUNNING) {
         status_drawable_->setFillColor(COLOR_SECONDARY);

@@ -12,6 +12,7 @@ private:
     MineField field_;
     GameStatus scene_state_;
     std::shared_ptr<sf::Text> status_drawable_;
+    float time_win_ = 0;
 
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
