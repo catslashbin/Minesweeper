@@ -63,7 +63,12 @@ void CustomScene::setupUI() {
     l1AddRect->setTexture(ResPool::getTexture("add.png").get());
     l1AddRect->setPosition(win_width_ - 27 DP, 29 DP);
     l1AddRect->setOnLeftClickHandler([this] {
-        length_++;
+        if (length_ <= 23) length_++;
+    });
+    l1AddRect->setOnDoubleClickHandler([this] {
+        if (length_ <= 14) length_ += 9;
+        else
+            length_ = 24;
     });
     registerWidget(l1AddRect);
 
@@ -72,6 +77,11 @@ void CustomScene::setupUI() {
     l1MinusRect->setPosition(win_width_ - 19 DP, 29 DP);
     l1MinusRect->setOnLeftClickHandler([this] {
         if (length_ >= 6) length_--;
+    });
+    l1MinusRect->setOnDoubleClickHandler([this] {
+        if (length_ >= 15) length_ -= 9;
+        else
+            length_ = 5;
     });
     registerWidget(l1MinusRect);
 
@@ -89,7 +99,12 @@ void CustomScene::setupUI() {
     l2AddRect->setTexture(ResPool::getTexture("add.png").get());
     l2AddRect->setPosition(win_width_ - 27 DP, 43 DP);
     l2AddRect->setOnLeftClickHandler([this] {
-        height_++;
+        if (height_ <= 29) height_++;
+    });
+    l2AddRect->setOnDoubleClickHandler([this] {
+        if (height_ <= 20) height_ += 9;
+        else
+            height_ = 30;
     });
     registerWidget(l2AddRect);
 
@@ -98,6 +113,11 @@ void CustomScene::setupUI() {
     l2MinusRect->setPosition(win_width_ - 19 DP, 43 DP);
     l2MinusRect->setOnLeftClickHandler([this] {
         if (height_ >= 6) height_--;
+    });
+    l2MinusRect->setOnDoubleClickHandler([this] {
+        if (height_ >= 15) height_ -= 9;
+        else
+            height_ = 6;
     });
     registerWidget(l2MinusRect);
 
@@ -115,7 +135,12 @@ void CustomScene::setupUI() {
     l3AddRect->setTexture(ResPool::getTexture("add.png").get());
     l3AddRect->setPosition(win_width_ - 27 DP, 57 DP);
     l3AddRect->setOnLeftClickHandler([this] {
-        num_mines_++;
+        if (num_mines_ <= 99) num_mines_++;
+    });
+    l3AddRect->setOnDoubleClickHandler([this] {
+        if (num_mines_ <= 90) num_mines_ += 9;
+        else
+            num_mines_ = 100;
     });
     registerWidget(l3AddRect);
 
@@ -125,6 +150,11 @@ void CustomScene::setupUI() {
     l3MinusRect->setOnLeftClickHandler([this] {
         if (num_mines_ >= 5) num_mines_--;
     });
+    l3MinusRect->setOnDoubleClickHandler([this] {
+        if (num_mines_ >= 14) num_mines_ -= 9;
+        else
+            num_mines_ = 4;
+    });
     registerWidget(l3MinusRect);
 
     // The Confirmation Icon
@@ -132,9 +162,18 @@ void CustomScene::setupUI() {
     confirmRect->setTexture(ResPool::getTexture("confirm.png").get());
     confirmRect->setPosition(14 DP, 74 DP);
     confirmRect->setOnLeftClickHandler([this] {
-        info("Custom Scene: L" + std::to_string(length_) + "H" + std::to_string(height_) + ", M" + std::to_string(num_mines_));
+        if (length_ * height_ > num_mines_ + 4)
+            info("Custom Scene: L" + std::to_string(length_) + "H" + std::to_string(height_) + ", M" + std::to_string(num_mines_));
+        else
+            registerWidget(not_valid_drawable_);
     });
     registerWidget(confirmRect);
+
+    sf::Text notValid = l1;
+    notValid.setString(L"不合法，请重新输入");
+    notValid.setFillColor(COLOR_SECONDARY);
+    notValid.setPosition(26 DP, 75 DP);
+    not_valid_drawable_ = std::make_shared<sf::Text>(notValid);
 }
 
 CustomScene::CustomScene(sf::RenderWindow &window, Difficulty::Level difficulty) : Scene(window, difficulty) {
