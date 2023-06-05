@@ -167,3 +167,4 @@ fabric.properties
 
 build/Minesweeper-CLI-Test
 build/Minesweeper-Test
+/build/
