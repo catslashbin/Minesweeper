@@ -82,29 +82,33 @@ public:
             initField();
             timer.restart();
         }
-        status = c_revealCell(field_, x, y) ? LOSE : RUNNING;
-        checkIfWin();
+
+        if (status == RUNNING) {
+            status = c_revealCell(field_, x, y) ? LOSE : RUNNING;
+            checkIfWin();
+        }
     }
 
     void revealSurrCells(int x, int y) {
-        assert(status == RUNNING || UNINITIALIZED);
-        status = c_revealSurrCells(field_, x, y) ? LOSE : RUNNING;
-        checkIfWin();
+        if (status == RUNNING) {
+            status = c_revealSurrCells(field_, x, y) ? LOSE : RUNNING;
+            checkIfWin();
+        }
     }
 
     void markFlagCell(int x, int y) {
-        assert(status == RUNNING || UNINITIALIZED);
-        c_markFlagCell(field_, x, y);
+        if (status == RUNNING || status == UNINITIALIZED)
+            c_markFlagCell(field_, x, y);
     }
 
     void markUnknownCell(int x, int y) {
-        assert(status == RUNNING || UNINITIALIZED);
-        c_markUnknownCell(field_, x, y);
+        if (status == RUNNING || status == UNINITIALIZED)
+            c_markUnknownCell(field_, x, y);
     }
 
     void clearMarkCell(int x, int y) {
-        assert(status == RUNNING || UNINITIALIZED);
-        c_clearMarkCell(field_, x, y);
+        if (status == RUNNING || status == UNINITIALIZED)
+            c_clearMarkCell(field_, x, y);
     }
 
     void checkIfWin() {
