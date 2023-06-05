@@ -120,24 +120,26 @@ bool c_revealSurrCells(c_MineField *field, int x, int y) {
             if (IS_AVAILABLE_SURR) {
                 c_MineCell *cell = c_getCell(field, i, j);
                 num_surr_flagged += cell->cell_state == FLAGGED;
-                is_incorrectly_flagged |= cell->is_mine && (cell->cell_state != FLAGGED);
+                if ((cell->cell_state == FLAGGED) && !cell->is_mine) {
+                    is_incorrectly_flagged = true;
+                }
             }
         }
     }
-
-    // If the mine is incorrectly flagged, stop the game before revealing the cells
-    if (is_incorrectly_flagged)
-        return true;
 
     // If the flagged mines does not equal to the num_surr_mines, ignore the cell.
     if (num_surr_flagged != c_getCell(field, x, y)->num_surr_mines)
         return false;
 
+    // If the mine is incorrectly flagged, stop the game before revealing the cells
+    if (is_incorrectly_flagged)
+        return true;
+
     // Open the cells recursively
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (IS_AVAILABLE_SURR) {
-                // NOTE: the `c_revealCell` will handel the cells marked with flag or already revealed.
+                // NOTE: the `revealCell` will handel the cells marked with flag or already revealed.
                 c_revealCell(field, i, j);
             }
         }
