@@ -58,7 +58,7 @@ void FieldScene::setupUI() {
     title.setFont(*ResPool::getFont("sans.ttf"));
     title.setString(L"扫雷");
     title.setCharacterSize(static_cast<unsigned int>(5.1 DP));
-    title.setFillColor(TITLE_COLOR);
+    title.setFillColor(COLOR_TITLE);
     title.setPosition(16 DP, TITLE_Y);
     auto titleDrawable = std::make_shared<sf::Text>(title);
     registerWidget(titleDrawable);
@@ -68,7 +68,7 @@ void FieldScene::setupUI() {
     status_bar.setFont(*ResPool::getFont("sans.ttf"));
     status_bar.setString(L"14 操作｜3 雷");
     status_bar.setCharacterSize(static_cast<unsigned int>(4.4 DP));
-    status_bar.setFillColor(SECONDARY_COLOR);
+    status_bar.setFillColor(COLOR_SECONDARY);
     status_bar.setPosition(31 DP, TITLE_Y + 0.45 DP);
     registerWidget(std::make_shared<sf::Text>(status_bar));
 

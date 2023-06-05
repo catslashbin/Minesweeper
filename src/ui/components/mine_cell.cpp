@@ -12,7 +12,7 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
     setPosition(sf::Vector2f(position));
     setSize(sf::Vector2f(side_length, side_length));
 
-    setFillColor(NOT_CLICKED_COLOR);
+    setFillColor(COLOR_NOT_CLICKED);
     setCornersRadius(side_length / 10.f);
     setCornerPointCount(4);
 }
@@ -45,7 +45,7 @@ void MineCell::setUpHandlers() {
     });
 
     setOnHoverChangeHandler([this](bool is_hover){
-        setFillColor(is_hover ? HOVER_COLOR : NOT_CLICKED_COLOR);
+        setFillColor(is_hover ? COLOR_HOVER : COLOR_NOT_CLICKED);
     });
 }
 

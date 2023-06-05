@@ -9,20 +9,20 @@
 void MenuScene::update() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2 position = sf::Mouse::getPosition(window_);
-        if (position.x ARCDP >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
+        if (position.x DP_INV >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
             // Easy
             bool toChangeSceneNotCustom = false;
-            if (position.y ARCDP >= 28 && position.y ARCDP <= 37) {
+            if (position.y DP_INV >= 28 && position.y DP_INV <= 37) {
                 difficulty_ = Difficulty::Easy;
                 toChangeSceneNotCustom = true;
             }
             // Medium
-            if (position.y ARCDP >= 42 && position.y ARCDP <= 51) {
+            if (position.y DP_INV >= 42 && position.y DP_INV <= 51) {
                 difficulty_ = Difficulty::Medium;
                 toChangeSceneNotCustom = true;
             }
             // Hard
-            if (position.y ARCDP >= 56 && position.y ARCDP <= 65) {
+            if (position.y DP_INV >= 56 && position.y DP_INV <= 65) {
                 difficulty_ = Difficulty::Hard;
                 toChangeSceneNotCustom = true;
             }
@@ -31,7 +31,7 @@ void MenuScene::update() {
                 changeScene(std::make_shared<FieldScene>(window_, difficulty_));
             }
             // Custom
-            if (position.y ARCDP >= 73 && position.y ARCDP <= 82) {
+            if (position.y DP_INV >= 73 && position.y DP_INV <= 82) {
                 // Selected Custom Mode
             }
         }
@@ -65,7 +65,7 @@ void MenuScene::setupUI() {
     title.setFont(*font);
     title.setString(L"菜单");
     title.setCharacterSize(static_cast<unsigned int>(5.1 DP));
-    title.setFillColor(TITLE_COLOR);
+    title.setFillColor(COLOR_TITLE);
     title.setPosition(20 DP, 12 DP);
     registerWidget(std::make_shared<sf::Text>(title));
 
@@ -74,14 +74,14 @@ void MenuScene::setupUI() {
     easy.setFont(*font);
     easy.setString(L"简单");
     easy.setCharacterSize(static_cast<unsigned int>(4.3 DP));
-    easy.setFillColor(TITLE_COLOR);
+    easy.setFillColor(COLOR_TITLE);
     easy.setPosition(14 DP, 28 DP);
     registerWidget(std::make_shared<sf::Text>(easy));
 
     sf::Text easyBelow = easy;
     easyBelow.setString(L"9x9棋盘 10个雷");
     easyBelow.setCharacterSize(3 DP);
-    easyBelow.setFillColor(SECONDARY_COLOR);
+    easyBelow.setFillColor(COLOR_SECONDARY);
     easyBelow.setPosition(14 DP, 34 DP);
     registerWidget(std::make_shared<sf::Text>(easyBelow));
 
@@ -108,7 +108,7 @@ void MenuScene::setupUI() {
     // The Split Line
     auto line = std::make_shared<sf::RectangleShape>(sf::Vector2f(DEF_WIN_WIDTH - 10 DP, 0.5 DP));
     line->setPosition(5 DP, 69 DP);
-    line->setFillColor(TITLE_BG_COLOR);
+    line->setFillColor(COLOR_TITLE_BG);
     registerWidget(line);
 
     sf::Text custom = easy;

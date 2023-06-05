@@ -39,7 +39,7 @@ void Game::mainLoop() {
             }*/
         }
 
-        window.clear(TITLE_BG_COLOR);
+        window.clear(COLOR_TITLE_BG);
 
         // Update scene
         assert(_curr_scene != nullptr);
