@@ -24,6 +24,7 @@ void FieldScene::update() {
         window_.draw(*status_drawable_);
     } else if (state.status == WIN) {
         status_drawable_->setFillColor(COLOR_WIN);
+        if (time_win_ == 0) time_win_ = state.time.asSeconds();
         status_drawable_->setString(fmt::format(L"胜利！用时 {:.2f} 秒", time_win_));
         window_.draw(*status_drawable_);
     } else if (state.status == RUNNING) {
@@ -105,7 +106,7 @@ FieldScene::FieldScene(sf::RenderWindow &window, int length, int height, int num
                                                 num_mines, {13 DP, 18.5f DP + static_cast<float>(height) * 0.2f DP},
                                                 static_cast<float>(8 DP) / static_cast<float>(length + height) * 18) {
     float cellSideLength = static_cast<float>(8 DP) / static_cast<float>(length + height) * 18;
-    resize(sf::Vector2f(cellSideLength * static_cast<float>(length) * 1.33f + 23 DP,
+    resize(sf::Vector2f(std::max(static_cast<float>(94 DP), cellSideLength * static_cast<float>(length) * 1.33f + 23 DP),
                         cellSideLength * static_cast<float>(height) * 1.33f + 29 DP));
     setupUI();
     scene_state_ = RUNNING;
