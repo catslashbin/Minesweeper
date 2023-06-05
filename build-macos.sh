@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 echo ">>> Prepare to build MineSweeper ..."
 mkdir -p build

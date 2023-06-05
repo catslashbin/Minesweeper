@@ -96,7 +96,7 @@ FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
                                         Difficulty::MineData[difficulty][2],
                                         {static_cast<float>(difficulty == Difficulty::Easy ? 14.1 DP : 13 DP),
                                          static_cast<float>(difficulty == Difficulty::Easy ? 20 DP : 18 DP)},
-                                        difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
+                                        difficulty == Difficulty::Easy ? 8 DP : 6.3 DP) {
     setupUI();
     scene_state_ = RUNNING;
 }
