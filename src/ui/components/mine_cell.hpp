@@ -17,7 +17,14 @@ private:
 
 public:
     MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, float side_length);
-    void update_cell(sf::RenderWindow &window);
+
+    void updateCell(sf::RenderWindow &window);
+
+    /**
+     * @warning This function must be called immediately after constructor func.
+     *          But it can not be called INSIDE the constructor, otherwise the lambda function will broken.
+     */
+    void setUpHandlers();
 };
 
 

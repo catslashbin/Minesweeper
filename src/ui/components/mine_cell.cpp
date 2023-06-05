@@ -15,38 +15,41 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
     setFillColor(NOT_CLICKED_COLOR);
     setCornersRadius(side_length / 10.f);
     setCornerPointCount(4);
+}
 
-    setOnLeftClickHandler([=, &game_core] {
-        info("Reveal cell: {}, {}", x, y);
-        game_core.revealCell(x, y);
+void MineCell::setUpHandlers() {
+
+    setOnLeftClickHandler([this] {
+        info("Reveal cell: {}, {}", x_, y_);
+        game_core_.revealCell(x_, y_);
     });
 
-    setOnRightClickHandler([=, &game_core] {
-        switch (game_core.getCell(x, y)->cell_state) {
+    setOnRightClickHandler([this] {
+        switch (game_core_.getCell(x_, y_)->cell_state) {
             case HIDDEN:
-                game_core.markFlagCell(x, y);
+                game_core_.markFlagCell(x_, y_);
                 break;
             case FLAGGED:
-                game_core.markUnknownCell(x, y);
+                game_core_.markUnknownCell(x_, y_);
                 break;
             case UNKNOWN:
-                game_core.clearMarkCell(x, y);
+                game_core_.clearMarkCell(x_, y_);
                 break;
             default:
                 break;
         }
     });
 
-    setOnDoubleClickHandler([=, &game_core] {
-        game_core.revealSurrCells(x, y);
+    setOnDoubleClickHandler([this] {
+        game_core_.revealSurrCells(x_, y_);
     });
 
-    // setOnHoverChangeHandler([this](bool is_hover){
-    //     this->onHoverChange(is_hover);
-    // });
+    setOnHoverChangeHandler([this](bool is_hover){
+        setFillColor(is_hover ? HOVER_COLOR : NOT_CLICKED_COLOR);
+    });
 }
 
-void MineCell::update_cell(sf::RenderWindow &window) {
+void MineCell::updateCell(sf::RenderWindow &window) {
     // Handle mouse click manually
     handleInteraction(window);
 

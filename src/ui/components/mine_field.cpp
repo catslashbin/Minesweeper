@@ -10,12 +10,13 @@ MineField::MineField(int field_length, int field_height, int num_mines, sf::Vect
     float margin = MARGIN_BY_SIDE_RADIO * cell_side_length;
     for (int y = 0; y < field_height_; ++y) {
         for (int x = 0; x < field_length_; ++x) {
-            cells_.emplace_back(
-                    std::make_shared<MineCell>(game_core_, x, y,
+            auto c = std::make_shared<MineCell>(game_core_, x, y,
                                                sf::Vector2f(float(x) * (cell_side_length + margin),
                                                             float(y) * (cell_side_length + margin)) +
                                                        position,
-                                               cell_side_length));
+                                               cell_side_length);
+            c->setUpHandlers();
+            cells_.emplace_back(c);
         }
     }
 }
@@ -26,7 +27,7 @@ void MineField::reset() {
 
 GameState MineField::update(sf::RenderWindow &window) {
     for (auto &c: cells_) {
-        c->update_cell(window);
+        c->updateCell(window);
     }
     return game_core_.state;
 }
