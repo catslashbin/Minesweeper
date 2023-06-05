@@ -4,16 +4,17 @@
 
 ## 编译 & 运行
 
-We have tested the game on Ubuntu22.04 & Mac XOS.  
+We have tested the game on Ubuntu 22.04 & macOS 13.0.
+
 Win version is not tested.
 
 ### Linux
 
-1. 安装 basic C++ toolkit  
+1. 安装 Basic C++ Toolkit
    ```bash
    sudo apt-get install gcc build-essential make cmake
    ```
-2. Install game deps  
+2. Install game deps
    ```bash
    sudo apt-get libsfml-dev libspdlog-dev
    ```
@@ -27,16 +28,24 @@ Win version is not tested.
    ./Minesweeper
    ```
 
-### OSX
+### macOS
 
-- WIP
+1. 从官网下载 SFML，并参阅 [官方教程](https://www.sfml-dev.org/tutorials/2.5/start-osx.php) 完成安装。
+
+2. 安装 x86_64 版本的 Homebrew，并安装 x86_64 版本的 spdlog。（如果为 M1 芯片，参阅 [介绍](https://medium.com/mkdir-awesome/how-to-install-x86-64-homebrew-packages-on-apple-m1-macbook-54ba295230f#)）
+
+3. 使用如下命令编译并运行。
+   ```bash
+   ./build-macos.sh
+   ./build/Minesweeper
+   ```
 
 ## 设计结构
 
 ### 项目结构
 
 我们采用 C++ 跨平台轻量级 UI 库 `SFML` 实现了扫雷游戏。  
-游戏结构参考了游戏引擎的实现，主要分为 资源管理，场景调度，组件实现，核心逻辑 四个部分。  
+游戏结构参考了游戏引擎的实现，主要分为 资源管理，场景调度，组件实现，核心逻辑 四个部分。
 
 #### 资源管理
 
@@ -45,7 +54,7 @@ Win version is not tested.
 
 #### 场景调度
 
-游戏实现了4个场景 (Scene)：菜单场景、游戏场景、自定义设置场景与测试场景。  
+游戏实现了4个场景 (Scene)：菜单场景、游戏场景、自定义设置场景与测试场景。
 
 - 场景基类 `ui/scene.hpp`
 - 调度实现见 `ui/game.hpp`
@@ -55,22 +64,23 @@ Win version is not tested.
 
 #### 组件实现
 
-组件是游戏中的基本元素，继承制 `SFML::Shape` 或 `SFML::Drawable`。  
-在本项目实现了一些常用的组件：可点击组件 (Clickable)、圆角矩形 (Rounded)、文本框 (TextField) 等。  
-组件实现主要依赖于 SFML 库提供的图形界面功能。  
+组件是游戏中的基本元素，继承自 `SFML::Shape` 或 `SFML::Drawable`。  
+在本项目实现了一些常用的组件：可点击组件 (Clickable)、圆角矩形 (Rounded) 等。  
+组件实现主要依赖于 SFML 库提供的图形界面功能。
 
-同时由于 SFML 不提供按钮组件，项目实现 `ClickableShape<T>` 模板类包装器用于封装任何 `SFML::Shape` 的子类为可点击对象。`Clickable` 类实现提供了事件回调函数，将由场景管理器统一调用。
+同时由于 SFML 不提供按钮组件，项目实现 `ClickableShape<T>` 模板类包装器用于封装任何 `SFML::Shape`
+的子类为可点击对象。`Clickable` 类实现提供了事件回调函数，将由场景管理器统一调用。
 
 #### 核心逻辑
 
 游戏的核心逻辑主要包括扫区域的生成、雷的布置、游戏状态的管理、游戏操作的处理等等。  
-在本项目中将核心逻辑封装在 `core` 目录。游戏核心包括扫雷逻辑的实现、游戏状态的管理、游戏操作的处理。`core.hpp` 为核心层的 C++ 的接口封装，方便其他模块调用。
-
+在本项目中将核心逻辑封装在 `core` 目录。游戏核心包括扫雷逻辑的实现、游戏状态的管理、游戏操作的处理。`core.hpp` 为核心层的
+C++ 的接口封装，方便其他模块调用。
 
 ### 文件结构
 
 ```
-.
+· 
 ├── build.sh                           # 构建脚本
 ├── CMakeLists.txt                     # CMake 配置文件
 ├── README.md                          # 项目说明文档
