@@ -2,11 +2,11 @@
 
 > Group 34: Catslashbin & Tianzeds
 
-## 编译 & 运行
+## 编译运行
 
 We have tested the game on Ubuntu 22.04 & macOS 13.0.
 
-Win version is not tested.
+Win version is not tested, but should act well after some deployments.
 
 ### Linux
 
