@@ -27,7 +27,7 @@ void MineField::reset() {
 
 GameState MineField::update(sf::RenderWindow &window) {
     for (auto &c: cells_) {
-        c->updateCell(window);
+        c->updateCell();
     }
     return game_core_.state;
 }

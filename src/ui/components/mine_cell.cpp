@@ -20,11 +20,12 @@ MineCell::MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, flo
 void MineCell::setUpHandlers() {
 
     setOnLeftClickHandler([this] {
-        info("Reveal cell: {}, {}", x_, y_);
+        debug("On left click: {}, {}", x_, y_);
         game_core_.revealCell(x_, y_);
     });
 
     setOnRightClickHandler([this] {
+        debug("On right click: {}, {}", x_, y_);
         switch (game_core_.getCell(x_, y_)->cell_state) {
             case HIDDEN:
                 game_core_.markFlagCell(x_, y_);
@@ -41,6 +42,7 @@ void MineCell::setUpHandlers() {
     });
 
     setOnDoubleClickHandler([this] {
+        debug("On double click: {}, {}", x_, y_);
         game_core_.revealSurrCells(x_, y_);
     });
 
@@ -49,9 +51,7 @@ void MineCell::setUpHandlers() {
     });
 }
 
-void MineCell::updateCell(sf::RenderWindow &window) {
-    // Handle mouse click manually
-    handleInteraction(window);
+void MineCell::updateCell() {
 
     auto c = game_core_.getCell(x_, y_);
 

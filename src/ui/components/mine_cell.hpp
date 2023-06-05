@@ -18,7 +18,7 @@ private:
 public:
     MineCell(GameCore &game_core, int x, int y, sf::Vector2f position, float side_length);
 
-    void updateCell(sf::RenderWindow &window);
+    void updateCell();
 
     /**
      * @warning This function must be called immediately after constructor func.
