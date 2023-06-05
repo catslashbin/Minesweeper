@@ -11,11 +11,21 @@ void FieldScene::update() {
     auto state = field_.update(window_);
     if (state == LOSE && scene_state_ == RUNNING) {
         scene_state_ = LOSE;
-        info("You failed.");
     } else if (state == WIN && scene_state_ == RUNNING) {
         scene_state_ = WIN;
-        info("You won the game!");
+    }
+    if (state == LOSE) {
+        status_drawable_->setFillColor(COLOR_MINE);
+        status_drawable_->setString(L"游戏结束");
+        window_.draw(*status_drawable_);
+    } else if (state == WIN) {
+        status_drawable_->setFillColor(COLOR_WIN);
+        status_drawable_->setString(L"胜利！");
+        window_.draw(*status_drawable_);
     } else if (state == RUNNING) {
+        status_drawable_->setFillColor(COLOR_SECONDARY);
+        status_drawable_->setString(L"14 操作｜3 雷");
+        window_.draw(*status_drawable_);
     }
 }
 
@@ -69,9 +79,7 @@ void FieldScene::setupUI() {
     status_bar.setCharacterSize(static_cast<unsigned int>(4.4 DP));
     status_bar.setFillColor(COLOR_SECONDARY);
     status_bar.setPosition(31 DP, TITLE_Y + 0.45 DP);
-    status_bar.setString(L"14 操作｜3 雷");
-    auto statusDrawable = std::make_shared<sf::Text>(status_bar);
-    registerWidget(statusDrawable);
+    status_drawable_ = std::make_shared<sf::Text>(status_bar);
 
     // Field
     field_.registerAsWidget(*this);

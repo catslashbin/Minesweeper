@@ -22,6 +22,8 @@ using spdlog::warn;
 #define COLOR_HOVER sf::Color { 0x0E74A19F }
 #define COLOR_TITLE sf::Color{ 0x00547AFF }
 #define COLOR_SECONDARY sf::Color{ 0x699EB5FF }
+#define COLOR_MINE sf::Color{ 0xCD4B4BFF }
+#define COLOR_WIN sf::Color{ 0xCD4B8DFF }
 
 #define TITLE_Y 3.5 DP
 

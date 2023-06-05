@@ -11,6 +11,7 @@ class FieldScene : public Scene {
 private:
     MineField field_;
     GameState scene_state_;
+    std::shared_ptr<sf::Text> status_drawable_;
 
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
