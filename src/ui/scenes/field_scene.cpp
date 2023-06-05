@@ -5,17 +5,27 @@
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 void FieldScene::update() {
     // Field Render
     auto state = field_.update(window_);
-    if (state == LOSE && sceneState_ == RUNNING) {
-        sceneState_ = LOSE;
-        info("You failed.");
-    } else if (state == WIN && sceneState_ == RUNNING) {
-        sceneState_ = WIN;
-        info("You won the game!");
+    if (state == LOSE && scene_state_ == RUNNING) {
+        scene_state_ = LOSE;
+    } else if (state == WIN && scene_state_ == RUNNING) {
+        scene_state_ = WIN;
+    }
+    if (state == LOSE) {
+        status_drawable_->setFillColor(COLOR_MINE);
+        status_drawable_->setString(L"游戏结束");
+        window_.draw(*status_drawable_);
+    } else if (state == WIN) {
+        status_drawable_->setFillColor(COLOR_WIN);
+        status_drawable_->setString(L"胜利！");
+        window_.draw(*status_drawable_);
+    } else if (state == RUNNING) {
+        status_drawable_->setFillColor(COLOR_SECONDARY);
+        status_drawable_->setString(L"14 操作｜3 雷");
+        window_.draw(*status_drawable_);
     }
 }
 
@@ -66,11 +76,10 @@ void FieldScene::setupUI() {
     // Field Title
     sf::Text status_bar;
     status_bar.setFont(*ResPool::getFont("sans.ttf"));
-    status_bar.setString(L"14 操作｜3 雷");
     status_bar.setCharacterSize(static_cast<unsigned int>(4.4 DP));
     status_bar.setFillColor(COLOR_SECONDARY);
     status_bar.setPosition(31 DP, TITLE_Y + 0.45 DP);
-    registerWidget(std::make_shared<sf::Text>(status_bar));
+    status_drawable_ = std::make_shared<sf::Text>(status_bar);
 
     // Field
     field_.registerAsWidget(*this);
@@ -79,9 +88,10 @@ void FieldScene::setupUI() {
 FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
     : Scene(window, difficulty), field_(Difficulty::MineData[difficulty][1], Difficulty::MineData[difficulty][0],
                                         Difficulty::MineData[difficulty][2],
-                                        {static_cast<float>(difficulty == Difficulty::Easy ? 14.1 DP : 13 DP), 18 DP},
+                                        {static_cast<float>(difficulty == Difficulty::Easy ? 14.1 DP : 13 DP),
+                                         static_cast<float>(difficulty == Difficulty::Easy ? 20 DP : 18 DP)},
                                         difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
 
     setupUI();
-    sceneState_ = RUNNING;
+    scene_state_ = RUNNING;
 }

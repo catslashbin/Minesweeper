@@ -1,4 +1,5 @@
 #include "menu_scene.hpp"
+#include "custom_scene.hpp"
 #include "field_scene.hpp"
 #include "ui/components/clickable.hpp"
 #include "ui/components/rounded.hpp"
@@ -32,7 +33,7 @@ void MenuScene::update() {
             }
             // Custom
             if (position.y DP_INV >= 73 && position.y DP_INV <= 82) {
-                // Selected Custom Mode
+                changeScene(std::make_shared<CustomScene>(window_, difficulty_));
             }
         }
     }
