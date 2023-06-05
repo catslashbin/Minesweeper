@@ -9,6 +9,7 @@ std::shared_ptr<sf::Texture> ResPool::getTexture(const std::string &path) {
     if (it == textures_.end()) {
         auto texture = std::make_shared<sf::Texture>();
         if (texture->loadFromFile(ASSETS_DIR + path)) {
+            texture->setSmooth(true);
             textures_[path] = texture;
             debug("Texture loaded: {}", path);
             return texture;
