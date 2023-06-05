@@ -6,8 +6,8 @@
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 
-#include <fmt/xchar.h>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <fmt/xchar.h>
 
 void FieldScene::update() {
     // Field Render
@@ -28,7 +28,7 @@ void FieldScene::update() {
     } else if (state.status == RUNNING) {
         status_drawable_->setFillColor(COLOR_SECONDARY);
         status_drawable_->setString(
-                fmt::format(L"{:.2f}s ｜{} 雷", state.time.asSeconds(), state.num_remaining_mines));
+                fmt::format(L"{:.0f} 秒｜{} 雷", state.time.asSeconds(), state.num_remaining_mines));
         window_.draw(*status_drawable_);
     }
 }
