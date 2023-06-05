@@ -8,13 +8,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void CustomScene::update() {
-    window_.draw(*round_drawable_);
     l1_drawable_->setString(std::to_string(length_));
-    window_.draw(*l1_drawable_);
     l2_drawable_->setString(std::to_string(height_));
-    window_.draw(*l2_drawable_);
     l3_drawable_->setString(std::to_string(num_mines_));
-    window_.draw(*l3_drawable_);
 }
 
 void CustomScene::setupUI() {
@@ -59,6 +55,7 @@ void CustomScene::setupUI() {
     l1Num.setCharacterSize(static_cast<unsigned int>(4.7 DP));
     l1Num.setPosition(36 DP, 28.7 DP);
     l1_drawable_ = std::make_shared<sf::Text>(l1Num);
+    registerWidget(l1_drawable_);
 
     auto l1AddRect = std::make_shared<ClickableShape<sf::RectangleShape>>(sf::Vector2f(5 DP, 5 DP));
     l1AddRect->setTexture(ResPool::getTexture("add.png").get());
@@ -95,6 +92,7 @@ void CustomScene::setupUI() {
     l2Num.setString(std::to_string(height_));
     l2Num.setPosition(36 DP, 42.7 DP);
     l2_drawable_ = std::make_shared<sf::Text>(l2Num);
+    registerWidget(l2_drawable_);
 
     auto l2AddRect = std::make_shared<ClickableShape<sf::RectangleShape>>(sf::Vector2f(5 DP, 5 DP));
     l2AddRect->setTexture(ResPool::getTexture("add.png").get());
@@ -131,6 +129,7 @@ void CustomScene::setupUI() {
     l3Num.setString(std::to_string(num_mines_));
     l3Num.setPosition(36 DP, 56.7 DP);
     l3_drawable_ = std::make_shared<sf::Text>(l3Num);
+    registerWidget(l3_drawable_);
 
     auto l3AddRect = std::make_shared<ClickableShape<sf::RectangleShape>>(sf::Vector2f(5 DP, 5 DP));
     l3AddRect->setTexture(ResPool::getTexture("add.png").get());
