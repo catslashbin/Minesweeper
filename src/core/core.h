@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define CORE_UI_MODE true // Enable UI mode for core, see c_revealSurrMines
+
 enum c_CellState { HIDDEN = 0,
                  REVEALED = 1,
                  FLAGGED = 2,
