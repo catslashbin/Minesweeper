@@ -35,7 +35,7 @@ void FieldScene::update() {
 
 void FieldScene::setupUI() {
     // The Rounded Center Part
-    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 6 DP, DEF_WIN_HEIGHT - 16 DP), 3 DP, 4);
+    auto round = std::make_shared<sf::RoundedRectangleShape>(sf::Vector2f(win_width_ - 6 DP, win_height_ - 16 DP), 3 DP, 4);
     round->setPosition(3 DP, 13 DP);
     round->setFillColor(sf::Color::White);
     registerWidget(round);
@@ -95,7 +95,17 @@ FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
                                         {static_cast<float>(difficulty == Difficulty::Easy ? 14.1 DP : 13 DP),
                                          static_cast<float>(difficulty == Difficulty::Easy ? 20 DP : 18 DP)},
                                         difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
+    setupUI();
+    scene_state_ = RUNNING;
+}
 
+FieldScene::FieldScene(sf::RenderWindow &window, int length, int height, int num_mines)
+    : Scene(window, Difficulty::Custom), field_(length, height,
+                                                num_mines, {13 DP, 18.5f DP + static_cast<float>(height) * 0.2f DP},
+                                                static_cast<float>(8 DP) / static_cast<float>(length + height) * 18) {
+    float cellSideLength = static_cast<float>(8 DP) / static_cast<float>(length + height) * 18;
+    resize(sf::Vector2f(cellSideLength * static_cast<float>(length) * 1.33f + 23 DP,
+                        cellSideLength * static_cast<float>(height) * 1.33f + 29 DP));
     setupUI();
     scene_state_ = RUNNING;
 }

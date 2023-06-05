@@ -16,6 +16,8 @@ private:
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);
 
+    FieldScene(sf::RenderWindow &window, int length, int height, int num_mines);
+
     void update() override;
 
     void setupUI();

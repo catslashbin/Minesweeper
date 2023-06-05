@@ -1,4 +1,5 @@
 #include "custom_scene.hpp"
+#include "field_scene.hpp"
 #include "menu_scene.hpp"
 #include "ui/components/clickable.hpp"
 #include "ui/components/rounded.hpp"
@@ -162,9 +163,10 @@ void CustomScene::setupUI() {
     confirmRect->setTexture(ResPool::getTexture("confirm.png").get());
     confirmRect->setPosition(14 DP, 74 DP);
     confirmRect->setOnLeftClickHandler([this] {
-        if (length_ * height_ > num_mines_ + 4)
+        if (length_ * height_ > num_mines_ + 7) {
             info("Custom Scene: L" + std::to_string(length_) + "H" + std::to_string(height_) + ", M" + std::to_string(num_mines_));
-        else
+            changeScene(std::make_shared<FieldScene>(window_, length_, height_, num_mines_));
+        } else
             registerWidget(not_valid_drawable_);
     });
     registerWidget(confirmRect);

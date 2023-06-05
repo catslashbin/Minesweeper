@@ -20,7 +20,7 @@ protected:
 
     void changeScene(std::shared_ptr<Scene> target_scene);
 
-    float win_width_{};
+    float win_width_{}, win_height_{};
 
     Difficulty::Level difficulty_;
 
