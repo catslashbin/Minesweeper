@@ -29,6 +29,8 @@ using spdlog::warn;
 
 #define EPS_DOUBLE_CLICK 300
 
+#define DEBUG_ENABLE_CHEAT true
+
 /* clang-format on */
 
 #endif //MINESWEEPER_CONSTS_HPP

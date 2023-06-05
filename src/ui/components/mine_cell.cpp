@@ -46,8 +46,16 @@ void MineCell::setUpHandlers() {
         game_core_.revealSurrCells(x_, y_);
     });
 
-    setOnHoverChangeHandler([this](bool is_hover){
-        setFillColor(is_hover ? COLOR_HOVER : COLOR_NOT_CLICKED);
+    setOnHoverChangeHandler([this](bool is_hover) {
+        if (is_hover) {
+            if (DEBUG_ENABLE_CHEAT) {
+                setFillColor(game_core_.getCell(x_, y_)->is_mine ? sf::Color::Red : COLOR_HOVER);
+            } else {
+                setFillColor(COLOR_HOVER);
+            }
+        } else {
+            setFillColor(COLOR_NOT_CLICKED);
+        }
     });
 }
 
