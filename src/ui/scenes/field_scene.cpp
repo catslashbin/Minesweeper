@@ -28,7 +28,7 @@ void FieldScene::update() {
     } else if (state.status == RUNNING) {
         status_drawable_->setFillColor(COLOR_SECONDARY);
         status_drawable_->setString(
-                fmt::format(L"{:.0f} 秒｜{} 雷", state.time.asSeconds(), state.num_remaining_mines));
+                fmt::format(L"{:.2f} 秒｜{} 雷", state.time.asSeconds(), state.num_remaining_mines));
         window_.draw(*status_drawable_);
     }
 }
