@@ -2,17 +2,12 @@
 #include "menu_scene.hpp"
 #include "ui/components/clickable.hpp"
 #include "ui/components/rounded.hpp"
+#include "ui/components/text_field.hpp"
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-void CustomScene::update() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        sf::Vector2 position = sf::Mouse::getPosition(window_);
-        if (position.x DP_INV >= 12 && position.x <= DEF_WIN_WIDTH - 12 DP) {
-        }
-    }
-}
+void CustomScene::update() {}
 
 void CustomScene::setupUI() {
     // Font
@@ -42,6 +37,11 @@ void CustomScene::setupUI() {
     title.setFillColor(COLOR_TITLE);
     title.setPosition(20 DP, 12 DP);
     registerWidget(std::make_shared<sf::Text>(title));
+
+    // Text Fields
+    sf::TextField text_field(20, *font);
+    text_field.setPosition(30, 30);
+    registerWidget(std::make_shared<sf::TextField>(text_field));
 
     // About Text
     sf::Text proudly;
