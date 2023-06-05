@@ -34,6 +34,7 @@ struct c_MineField {
     int num_mines;
     int num_revealed;
     int num_flagged;
+    int num_operations;
 };
 typedef struct c_MineField c_MineField;
 

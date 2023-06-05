@@ -25,11 +25,11 @@ void MineField::reset() {
     game_core_ = GameCore(field_length_, field_height_, num_mines_);
 }
 
-GameState MineField::update(sf::RenderWindow &window) {
+GameState MineField::update() {
     for (auto &c: cells_) {
         c->updateCell();
     }
-    return game_core_.state;
+    return game_core_.getState();
 }
 
 void MineField::registerAsWidget(Scene &scene) {

@@ -70,6 +70,6 @@ void MineCell::updateCell() {
             break;
     }
 
-    if (game_core_.state == LOSE && c->is_mine)
+    if (game_core_.status == LOSE && c->is_mine)
         setTexture(ResPool::getTexture("mine.png").get());
 }

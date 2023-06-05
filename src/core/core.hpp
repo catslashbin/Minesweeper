@@ -2,16 +2,25 @@
 #ifndef MINESWEEPER_CORE_HPP
 #define MINESWEEPER_CORE_HPP
 
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 #include <cassert>
+
 extern "C" {
 #include "core.h"
 }
 
-enum GameState {
+enum GameStatus {
     UNINITIALIZED = -1,
     RUNNING = 0,
     WIN = 1,
     LOSE = 2
+};
+
+struct GameState {
+    GameStatus status;
+    sf::Time time;
+    int num_remaining_mines;
 };
 
 
@@ -22,9 +31,10 @@ private:
 
 public:
     /**
-     * Store the game state
+     * Store the game status
      */
-    GameState state;
+    GameStatus status;
+    sf::Clock timer;
 
     /**
      * Create a mine field
@@ -32,7 +42,7 @@ public:
      * @param height Height of the field
      * @param num_mines Numbers of mines
      */
-    GameCore(int length, int height, int num_mines) : state(UNINITIALIZED) {
+    GameCore(int length, int height, int num_mines) : status(UNINITIALIZED) {
         field_ = c_createField(length, height, num_mines);
     }
 
@@ -53,7 +63,7 @@ public:
      */
     void initField() {
         c_initField(field_);
-        state = RUNNING;
+        status = RUNNING;
     }
 
     /**
@@ -67,38 +77,43 @@ public:
     }
 
     void revealCell(int x, int y) {
-        if (state == UNINITIALIZED) {
+        if (status == UNINITIALIZED) {
             scatterMines(x, y);
             initField();
+            timer.restart();
         }
-        state = c_revealCell(field_, x, y) ? LOSE : RUNNING;
+        status = c_revealCell(field_, x, y) ? LOSE : RUNNING;
         checkIfWin();
     }
 
     void revealSurrCells(int x, int y) {
-        assert(state == RUNNING || UNINITIALIZED);
-        state = c_revealSurrCells(field_, x, y) ? LOSE : RUNNING;
+        assert(status == RUNNING || UNINITIALIZED);
+        status = c_revealSurrCells(field_, x, y) ? LOSE : RUNNING;
         checkIfWin();
     }
 
     void markFlagCell(int x, int y) {
-        assert(state == RUNNING || UNINITIALIZED);
+        assert(status == RUNNING || UNINITIALIZED);
         c_markFlagCell(field_, x, y);
     }
 
     void markUnknownCell(int x, int y) {
-        assert(state == RUNNING || UNINITIALIZED);
+        assert(status == RUNNING || UNINITIALIZED);
         c_markUnknownCell(field_, x, y);
     }
 
     void clearMarkCell(int x, int y) {
-        assert(state == RUNNING || UNINITIALIZED);
+        assert(status == RUNNING || UNINITIALIZED);
         c_clearMarkCell(field_, x, y);
     }
 
     void checkIfWin() {
-        if (state == RUNNING)
-            state = c_checkIfWin(field_) ? WIN : RUNNING;
+        if (status == RUNNING)
+            status = c_checkIfWin(field_) ? WIN : RUNNING;
+    }
+
+    GameState getState() {
+        return {status, timer.getElapsedTime(), field_->num_mines - field_->num_flagged};
     }
 };
 

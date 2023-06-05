@@ -1,30 +1,34 @@
 #include "field_scene.hpp"
 #include "menu_scene.hpp"
+
 #include "ui/components/clickable.hpp"
 #include "ui/components/rounded.hpp"
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
+
+#include <fmt/xchar.h>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 void FieldScene::update() {
     // Field Render
-    auto state = field_.update(window_);
-    if (state == LOSE && scene_state_ == RUNNING) {
+    auto state = field_.update();
+    if (state.status == LOSE && scene_state_ == RUNNING) {
         scene_state_ = LOSE;
-    } else if (state == WIN && scene_state_ == RUNNING) {
+    } else if (state.status == WIN && scene_state_ == RUNNING) {
         scene_state_ = WIN;
     }
-    if (state == LOSE) {
+    if (state.status == LOSE) {
         status_drawable_->setFillColor(COLOR_MINE);
         status_drawable_->setString(L"游戏结束");
         window_.draw(*status_drawable_);
-    } else if (state == WIN) {
+    } else if (state.status == WIN) {
         status_drawable_->setFillColor(COLOR_WIN);
         status_drawable_->setString(L"胜利！");
         window_.draw(*status_drawable_);
-    } else if (state == RUNNING) {
+    } else if (state.status == RUNNING) {
         status_drawable_->setFillColor(COLOR_SECONDARY);
-        status_drawable_->setString(L"14 操作｜3 雷");
+        status_drawable_->setString(
+                fmt::format(L"{:.2f}s ｜{} 雷", state.time.asSeconds(), state.num_remaining_mines));
         window_.draw(*status_drawable_);
     }
 }
