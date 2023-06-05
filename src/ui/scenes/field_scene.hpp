@@ -5,11 +5,12 @@
 #include "ui/scene.hpp"
 #include "ui/utils/consts.hpp"
 #include "ui/utils/difficulty.hpp"
+#include <SFML/Graphics/Text.hpp>
 
 class FieldScene : public Scene {
 private:
     MineField field_;
-    GameState sceneState_;
+    GameState scene_state_;
 
 public:
     FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty);

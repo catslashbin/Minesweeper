@@ -5,17 +5,17 @@
 #include "ui/utils/consts.hpp"
 #include "ui/utils/res_pool.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 void FieldScene::update() {
     // Field Render
     auto state = field_.update(window_);
-    if (state == LOSE && sceneState_ == RUNNING) {
-        sceneState_ = LOSE;
+    if (state == LOSE && scene_state_ == RUNNING) {
+        scene_state_ = LOSE;
         info("You failed.");
-    } else if (state == WIN && sceneState_ == RUNNING) {
-        sceneState_ = WIN;
+    } else if (state == WIN && scene_state_ == RUNNING) {
+        scene_state_ = WIN;
         info("You won the game!");
+    } else if (state == RUNNING) {
     }
 }
 
@@ -66,11 +66,12 @@ void FieldScene::setupUI() {
     // Field Title
     sf::Text status_bar;
     status_bar.setFont(*ResPool::getFont("sans.ttf"));
-    status_bar.setString(L"14 操作｜3 雷");
     status_bar.setCharacterSize(static_cast<unsigned int>(4.4 DP));
     status_bar.setFillColor(COLOR_SECONDARY);
     status_bar.setPosition(31 DP, TITLE_Y + 0.45 DP);
-    registerWidget(std::make_shared<sf::Text>(status_bar));
+    status_bar.setString(L"14 操作｜3 雷");
+    auto statusDrawable = std::make_shared<sf::Text>(status_bar);
+    registerWidget(statusDrawable);
 
     // Field
     field_.registerAsWidget(*this);
@@ -83,5 +84,5 @@ FieldScene::FieldScene(sf::RenderWindow &window, Difficulty::Level difficulty)
                                         difficulty == Difficulty::Easy ? 8 DP : 4.5 DP) {
 
     setupUI();
-    sceneState_ = RUNNING;
+    scene_state_ = RUNNING;
 }
