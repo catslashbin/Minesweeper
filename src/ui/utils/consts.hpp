@@ -29,7 +29,7 @@ using spdlog::warn;
 
 #define EPS_DOUBLE_CLICK 300
 
-#define DEBUG_ENABLE_CHEAT true
+#define DEBUG_ENABLE_CHEAT false
 
 /* clang-format on */
 
